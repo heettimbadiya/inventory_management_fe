@@ -106,16 +106,16 @@ export function AuthProvider({ children }) {
 
     const response = await axios.post(endpoints.auth.login, data);
 
-    const { accessToken, user } = response.data;
+    const { token, user } = response.data;
 
-    setSession(accessToken);
+    setSession(token);
 
     dispatch({
       type: 'LOGIN',
       payload: {
         user: {
           ...user,
-          accessToken,
+          accessToken:token,
         },
       },
     });
@@ -130,21 +130,19 @@ export function AuthProvider({ children }) {
       lastName,
     };
 
-    const response = await axios.post(endpoints.auth.register, data);
+     await axios.post(endpoints.auth.register, data);
 
-    const { accessToken, user } = response.data;
-
-    sessionStorage.setItem(STORAGE_KEY, accessToken);
-
-    dispatch({
-      type: 'REGISTER',
-      payload: {
-        user: {
-          ...user,
-          accessToken,
-        },
-      },
-    });
+    // const { token, user } = response.data;
+    //
+    // dispatch({
+    //   type: 'REGISTER',
+    //   payload: {
+    //     user: {
+    //       ...user,
+    //       accessToken:token,
+    //     },
+    //   },
+    // });
   }, []);
 
   // LOGOUT

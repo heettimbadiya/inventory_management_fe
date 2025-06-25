@@ -125,10 +125,6 @@ export default function JwtLoginView() {
     <>
       {renderHead}
 
-      <Alert severity="info" sx={{ mb: 3 }}>
-        Use email : <strong>demo@minimals.cc</strong> / password :<strong> demo1234</strong>
-      </Alert>
-
       {!!errorMsg && (
         <Alert severity="error" sx={{ mb: 3 }}>
           {errorMsg}
