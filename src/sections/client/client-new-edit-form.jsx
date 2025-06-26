@@ -19,6 +19,7 @@ import FormProvider, { RHFAutocomplete, RHFTextField } from 'src/components/hook
 import axios from 'axios';
 import { paths } from 'src/routes/paths';
 import { HOST_API } from '../../config-global';
+import axiosInstance from '../../utils/axios.js';
 
 // ----------------------------------------------------------------------
 
@@ -26,8 +27,13 @@ const EXPENSE_TYPES = ['Individual', 'Company', 'Agency'];
 
 const ExpenseSchema = Yup.object().shape({
   clientName: Yup.string().required('Name is required'),
-  email: Yup.string().required('Email is required'),
-  phoneNumber: Yup.string().required('Phone number is required'),
+  email: Yup.string()
+    .email('Invalid email format')
+    .required('Email is required'),
+
+  phoneNumber: Yup.string()
+    .matches(/^[0-9]\d{9}$/, 'Phone number must be 10 digits')
+    .required('Phone number is required'),
   type: Yup.string().required('Type is required'),
 });
 
@@ -67,7 +73,7 @@ export default function ClientNewEditForm({ clientId }) {
       try {
 
         // Otherwise, fetch from API
-        const response = await axios.get(`${HOST_API}/api/client/${clientId}`);
+        const response = await axiosInstance.get(`/api/client/${clientId}`);
         const { data } = response.data;
 
         reset({
@@ -91,16 +97,15 @@ export default function ClientNewEditForm({ clientId }) {
     try {
       const payload = {
         ...formData,
-        date: formData.date ? formData.date.toISOString() : null,
       };
 
       if (isEdit) {
         // Update existing client
-        await axios.put(`${HOST_API}/api/client/${clientId}`, payload);
+        await axiosInstance.put(`/api/client/${clientId}`, payload);
         enqueueSnackbar('Client updated successfully!', { variant: 'success' });
       } else {
         // Create new client
-        await axios.post(`${HOST_API}/api/client`, payload);
+        await axiosInstance.post(`/api/client`, payload);
         enqueueSnackbar('Client created successfully!', { variant: 'success' });
       }
 
@@ -166,7 +171,7 @@ export default function ClientNewEditForm({ clientId }) {
             />
 
             <RHFTextField
-              name="note"
+              name="notes"
               label="Note"
               placeholder="Enter client note"
             />

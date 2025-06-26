@@ -40,12 +40,13 @@ import ClientTableRow from '../client-table-row';
 import ClientTableToolbar from '../client-table-toolbar';
 import ClientTableFiltersResult from '../client-table-filter-result';
 import { HOST_API } from '../../../config-global';
+import axiosInstance from '../../../utils/axios.js';
 
 // ----------------------------------------------------------------------
 
 
 const TABLE_HEAD = [
-  { id: 'srNo', label: 'Sr No', width: 120 },
+  { id: 'srNo', label: '#', width: 280 },
   { id: 'clientName', label: 'Name' },
   { id: 'email', label: 'Email', width: 230 },
   { id: 'phoneNumber', label: 'Contact', width: 230 },
@@ -82,11 +83,11 @@ export default function ClientListView() {
   const handleDeleteRow = useCallback(async (id) => {
       try {
 
-        const response = await axios.delete(
-          `${HOST_API}/api/delete/${id}`
+        const response = await axiosInstance.delete(
+          `/api/client/${id}`
         );
-        if (response.status === 200) {
-          enqueueSnackbar('deleted successfully', { variant: 'success' });
+        if (response?.data?.success == true) {
+          enqueueSnackbar('Client deleted successfully', { variant: 'success' });
 
           confirm.onFalse();
           mutate();
@@ -213,12 +214,7 @@ export default function ClientListView() {
                   rowCount={dataFiltered.length}
                   numSelected={table.selected.length}
                   onSort={table.onSort}
-                  onSelectAllRows={(checked) =>
-                    table.onSelectAllRows(
-                      checked,
-                      dataFiltered.map((row) => row._id)
-                    )
-                  }
+
                 />
 
                 <TableBody>

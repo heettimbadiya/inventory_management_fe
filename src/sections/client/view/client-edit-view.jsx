@@ -34,7 +34,7 @@ export default function ClientEditView({ id }) {
         }}
       />
 
-      <ClientNewEditForm expensesId={id} />
+      <ClientNewEditForm clientId={id} />
     </Container>
   );
 }

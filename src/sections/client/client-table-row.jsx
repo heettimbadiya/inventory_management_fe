@@ -17,14 +17,13 @@ import CustomPopover, { usePopover } from 'src/components/custom-popover';
 // ----------------------------------------------------------------------
 
 export default function ClientTableRow({
-                                          row,
+                                         row,
                                           selected,
                                           onEditRow,
-                                          onSelectRow,
                                           onDeleteRow,
                                           index,
                                         }) {
-  const { amount, date, desc, type } = row;
+  const { clientName, email, phoneNumber, type,notes,address } = row;
 
   const confirm = useBoolean();
 
@@ -33,18 +32,17 @@ export default function ClientTableRow({
   return (
     <>
       <TableRow hover selected={selected}>
-        <TableCell padding="checkbox" sx={{ width: '90px' }}>
-          <Checkbox checked={selected} onClick={onSelectRow} />
-        </TableCell>
 
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{index + 1}</TableCell>
 
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{clientName}</TableCell>
+
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{email}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{phoneNumber}</TableCell>
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{type}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{notes}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{address}</TableCell>
 
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{desc}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{amount}</TableCell>
-
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{moment(date).format('DD/MM/YYYY')}</TableCell>
 
         <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
 
@@ -102,7 +100,6 @@ export default function ClientTableRow({
 ClientTableRow.propTypes = {
   onDeleteRow: PropTypes.func,
   onEditRow: PropTypes.func,
-  onSelectRow: PropTypes.func,
   row: PropTypes.object,
   selected: PropTypes.bool,
   index: PropTypes.number,

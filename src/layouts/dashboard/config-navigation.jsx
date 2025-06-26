@@ -51,12 +51,12 @@ export function useNavData() {
       {
         subheader: 'overview v5.7.0',
         items: [
+          { title: 'dashboard', path: paths.dashboard.root, icon: ICONS.dashboard },
           {
             title: 'Client',
             path: paths.dashboard.client.list,
-            icon: ICONS.analytics,
+            icon: ICONS.user,
           },
-          { title: 'one', path: paths.dashboard.root, icon: ICONS.dashboard },
           { title: 'two', path: paths.dashboard.two, icon: ICONS.ecommerce },
           {
             title: 'three',

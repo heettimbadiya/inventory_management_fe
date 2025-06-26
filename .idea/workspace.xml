@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="29c60aaa-4cf6-41cb-95a1-a437c71c53f4" name="Changes" comment="remove unnecessary code">
+      <change afterPath="$PROJECT_DIR$/src/components/carousel/arrow-icons.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/carousel/carousel-arrow-index.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/carousel/carousel-arrows.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/carousel/carousel-dots.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/carousel/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/carousel/use-carousel.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/chart/chart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/chart/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/chart/use-chart.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/image/image.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/image/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/image/utils.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/locales/config-lang.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/locales/i18n.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/locales/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/locales/langs/ar.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/locales/langs/cn.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/locales/langs/en.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/locales/langs/fr.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/locales/langs/vi.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/locales/localization-provider.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/locales/use-locales.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/dashboard/app.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/overview/app/app-area-installed.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/overview/app/app-current-download.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/overview/app/app-featured.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/overview/app/app-new-invoice.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/overview/app/app-top-authors.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/overview/app/app-top-installed-countries.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/overview/app/app-top-related.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/overview/app/app-welcome.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/overview/app/app-widget-summary.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/overview/app/app-widget.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/overview/app/view/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/sections/overview/app/view/overview-app-view.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/format-number.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/dashboard/config-navigation.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/dashboard/config-navigation.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/sections/dashboard.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/sections/dashboard.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sections/client/client-new-edit-form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/sections/client/client-new-edit-form.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sections/client/client-table-row.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/sections/client/client-table-row.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sections/client/view/client-edit-view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/sections/client/view/client-edit-view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sections/client/view/client-list-view.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/sections/client/view/client-list-view.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "heettimbadiya"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/heettimbadiya/Event-production.git",
+    "accountId": "bffd999f-dca7-4737-a6f2-5021cb8a4b30"
+  }
+}]]></component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2z0TOmaSa31FAmJ5aGwVWnqOL3H" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/ADMIN/Downloads/Minimal_JavaScript_v5.7.0-jiukjv/Minimal_JavaScript_v5.7.0/starter-vite-js/src/components",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "settings.editor.selected.configurable": "preferences.keymap",
+    "ts.external.directory.path": "C:\\Users\\ADMIN\\Downloads\\Minimal_JavaScript_v5.7.0-jiukjv\\Minimal_JavaScript_v5.7.0\\starter-vite-js\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\ADMIN\Downloads\Minimal_JavaScript_v5.7.0-jiukjv\Minimal_JavaScript_v5.7.0\starter-vite-js\src\components" />
+      <recent name="C:\Users\ADMIN\Downloads\Minimal_JavaScript_v5.7.0-jiukjv\Minimal_JavaScript_v5.7.0\starter-vite-js\src" />
+      <recent name="C:\Users\ADMIN\Downloads\Minimal_JavaScript_v5.7.0-jiukjv\Minimal_JavaScript_v5.7.0\starter-vite-js\src\utils" />
+      <recent name="C:\Users\ADMIN\Downloads\Minimal_JavaScript_v5.7.0-jiukjv\Minimal_JavaScript_v5.7.0\starter-vite-js\src\sections" />
+      <recent name="C:\Users\ADMIN\Downloads\Minimal_JavaScript_v5.7.0-jiukjv\Minimal_JavaScript_v5.7.0\starter-vite-js\src\pages\dashboard" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-WS-243.23654.157" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="29c60aaa-4cf6-41cb-95a1-a437c71c53f4" name="Changes" comment="" />
+      <created>1750866961077</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1750866961077</updated>
+      <workItem from="1750866963083" duration="12186000" />
+    </task>
+    <task id="LOCAL-00001" summary="implement JWT-based authentication">
+      <option name="closed" value="true" />
+      <created>1750872807762</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1750872807767</updated>
+    </task>
+    <task id="LOCAL-00002" summary="remove unnecessary code">
+      <option name="closed" value="true" />
+      <created>1750874479966</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1750874479966</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="implement JWT-based authentication" />
+    <MESSAGE value="remove unnecessary code" />
+    <option name="LAST_COMMIT_MESSAGE" value="remove unnecessary code" />
+  </component>
+</project>
