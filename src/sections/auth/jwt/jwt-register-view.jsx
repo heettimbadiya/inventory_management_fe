@@ -21,12 +21,13 @@ import { useAuthContext } from 'src/auth/hooks';
 
 import Iconify from 'src/components/iconify';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
+import { useSnackbar } from 'notistack';
 
 // ----------------------------------------------------------------------
 
 export default function JwtRegisterView() {
   const { register } = useAuthContext();
-
+  const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
 
   const [errorMsg, setErrorMsg] = useState('');
@@ -61,9 +62,10 @@ export default function JwtRegisterView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await register?.(data.email, data.password, data.firstName, data.lastName);
-
+      enqueueSnackbar('User registered successfully!',{variant:"success"})
       router.push(paths.auth.jwt.login);
     } catch (error) {
+      enqueueSnackbar("Something want wrong!",{variant:'error'})
       console.error(error);
       reset();
       setErrorMsg(typeof error === 'string' ? error : error.message);

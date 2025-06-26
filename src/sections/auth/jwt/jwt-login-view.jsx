@@ -22,12 +22,13 @@ import { PATH_AFTER_LOGIN } from 'src/config-global';
 
 import Iconify from 'src/components/iconify';
 import FormProvider, { RHFTextField } from 'src/components/hook-form';
+import { useSnackbar } from 'notistack';
 
 // ----------------------------------------------------------------------
 
 export default function JwtLoginView() {
   const { login } = useAuthContext();
-
+  const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
 
   const [errorMsg, setErrorMsg] = useState('');
@@ -62,9 +63,10 @@ export default function JwtLoginView() {
   const onSubmit = handleSubmit(async (data) => {
     try {
       await login?.(data.email, data.password);
-
+      enqueueSnackbar("Login successfully!",{variant:'success'})
       router.push(returnTo || PATH_AFTER_LOGIN);
     } catch (error) {
+      enqueueSnackbar("Something want wrong!",{variant:'error'})
       console.error(error);
       reset();
       setErrorMsg(typeof error === 'string' ? error : error.message);
