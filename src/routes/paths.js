@@ -22,6 +22,12 @@ export const paths = {
     one: `${ROOTS.DASHBOARD}/one`,
     two: `${ROOTS.DASHBOARD}/two`,
     three: `${ROOTS.DASHBOARD}/three`,
+    client: {
+      root: `${ROOTS.DASHBOARD}/client`,
+      list: `${ROOTS.DASHBOARD}/client/list`,
+      edit: (id) => `${ROOTS.DASHBOARD}/client/${id}/edit`,
+      new: `${ROOTS.DASHBOARD}/client/new`,
+    },
     group: {
       root: `${ROOTS.DASHBOARD}/group`,
       five: `${ROOTS.DASHBOARD}/group/five`,

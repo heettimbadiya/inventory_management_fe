@@ -5,6 +5,9 @@ import { AuthGuard } from 'src/auth/guard';
 import DashboardLayout from 'src/layouts/dashboard';
 
 import { LoadingScreen } from 'src/components/loading-screen';
+import ClientCreatePage from '../../pages/dashboard/client/create';
+import ClientListPage from '../../pages/dashboard/client/list';
+import ClientEditPage from '../../pages/dashboard/client/edit';
 
 // ----------------------------------------------------------------------
 
@@ -33,6 +36,15 @@ export const dashboardRoutes = [
       { element: <IndexPage />, index: true },
       { path: 'two', element: <PageTwo /> },
       { path: 'three', element: <PageThree /> },
+      {
+        path: 'client',
+        children: [
+          { element: <ClientListPage />, index: true },
+          { path: 'list', element: <ClientListPage /> },
+          { path: 'new', element: <ClientCreatePage /> },
+          { path: ':id/edit', element: <ClientEditPage /> },
+        ],
+      },
       {
         path: 'group',
         children: [

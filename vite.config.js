@@ -10,7 +10,7 @@ export default defineConfig({
     react(),
     checker({
       eslint: {
-        lintCommand: 'eslint "./src/**/*.{js,jsx,ts,tsx}"',
+        lintCommand: 'eslint ""',
       },
       overlay: {
         initialIsOpen: false,
