@@ -9,9 +9,6 @@ export default defineConfig({
   plugins: [
     react(),
     checker({
-      eslint: {
-        lintCommand: 'eslint ""',
-      },
       overlay: {
         initialIsOpen: false,
       },
