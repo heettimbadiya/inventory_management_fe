@@ -107,6 +107,7 @@ export default function RHFAutocomplete({ name, label, type, helperText, placeho
                   );
                 })
               }
+              size="small"
               {...other}
             />
           );
@@ -131,6 +132,7 @@ export default function RHFAutocomplete({ name, label, type, helperText, placeho
                 }}
               />
             )}
+            size="small"
             {...other}
           />
         );

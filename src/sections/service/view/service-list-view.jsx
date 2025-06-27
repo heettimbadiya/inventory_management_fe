@@ -296,11 +296,10 @@ function applyFilter({ inputData, comparator, filters }) {
   inputData = stabilizedThis.map((el) => el[0]);
 
   if (name) {
-    inputData = inputData.filter(
+    inputData = inputData?.filter(
       (user) =>
-        user.name.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        user.description.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        user.cost.toLowerCase().indexOf(name.toLowerCase()) !== -1
+        user?.name.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
+        user?.description.toLowerCase().indexOf(name.toLowerCase()) !== -1
     );
   }
 

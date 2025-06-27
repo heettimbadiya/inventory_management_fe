@@ -48,7 +48,7 @@ import { useGetEvent } from '../../../api/event';
 const TABLE_HEAD = [
   { id: 'srNo', label: '#', width: 280 },
   { id: 'eventTitle', label: 'Title' },
-  { id: 'clientName', label: 'Client Name', width: 230 },
+  { id: 'clientName', label: 'Client Name', width: 260 },
   { id: 'status', label: 'Status', width: 230 },
   { id: 'eventDate', label: 'Date', width: 230 },
   { id: 'location', label: 'Location', width: 230 },

@@ -47,8 +47,8 @@ import { useGetRental } from '../../../api/rental';
 const TABLE_HEAD = [
   { id: 'srNo', label: '#'},
   { id: 'item', label: 'Item Name' },
-  { id: 'quantity', label: 'Quantity' },
-  { id: 'cost', label: 'Cost'},
+  { id: 'quantity', label: 'Quantity' ,width:230},
+  { id: 'cost', label: 'Cost',width: 230},
   { id: '', width: 88 },
 ];
 

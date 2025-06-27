@@ -1,10 +1,8 @@
-import moment from 'moment';
 import PropTypes from 'prop-types';
 
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
 
@@ -13,6 +11,7 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import Iconify from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
+import { fDate } from '../../utils/format-time.js';
 
 // ----------------------------------------------------------------------
 
@@ -23,7 +22,7 @@ export default function EventTableRow({
                                           onDeleteRow,
                                           index,
                                         }) {
-  const { eventTitle,clientName, status, eventDate, location,teamNotes } = row;
+  const { eventTitle,clientId, status, eventDate, location,teamNotes } = row;
 
   const confirm = useBoolean();
 
@@ -36,10 +35,10 @@ export default function EventTableRow({
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{index + 1}</TableCell>
 
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{eventTitle}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{clientName?.name}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{clientId?.clientName}</TableCell>
 
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{status}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{eventDate}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{fDate(eventDate, 'dd/MM/yyyy')}</TableCell>
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{location}</TableCell>
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{teamNotes}</TableCell>
 

@@ -14,6 +14,9 @@ import EventEditPage from '../../pages/dashboard/event/edit';
 import RentalListPage from '../../pages/dashboard/rental/list';
 import RentalCreatePage from '../../pages/dashboard/rental/create';
 import RentalEditPage from '../../pages/dashboard/rental/edit';
+import ServiceListPage from '../../pages/dashboard/service/list.jsx';
+import ServiceCreatePage from '../../pages/dashboard/service/create.jsx';
+import ServiceEditPage from '../../pages/dashboard/service/edit.jsx';
 
 // ----------------------------------------------------------------------
 
@@ -67,6 +70,14 @@ export const dashboardRoutes = [
           { path: 'list', element: <RentalListPage /> },
           { path: 'new', element: <RentalCreatePage /> },
           { path: ':id/edit', element: <RentalEditPage /> },
+        ],
+      },{
+        path: 'service',
+        children: [
+          { element: <ServiceListPage />, index: true },
+          { path: 'list', element: <ServiceListPage /> },
+          { path: 'new', element: <ServiceCreatePage /> },
+          { path: ':id/edit', element: <ServiceEditPage /> },
         ],
       },
       {

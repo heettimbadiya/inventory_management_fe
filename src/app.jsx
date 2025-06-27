@@ -14,6 +14,7 @@ import { MotionLazy } from 'src/components/animate/motion-lazy';
 import { SettingsDrawer, SettingsProvider } from 'src/components/settings';
 import SnackbarProvider from 'src/components/snackbar/snackbar-provider';
 import { AuthProvider } from 'src/auth/context/jwt';
+import { LocalizationProvider } from './locales/index.js';
 
 // ----------------------------------------------------------------------
 
@@ -34,6 +35,7 @@ export default function App() {
 
   return (
     <AuthProvider>
+      <LocalizationProvider>
       <SettingsProvider
         defaultSettings={{
           themeMode: 'light', // 'light' | 'dark'
@@ -54,6 +56,7 @@ export default function App() {
           </MotionLazy>
         </ThemeProvider>
       </SettingsProvider>
+      </LocalizationProvider>
     </AuthProvider>
   );
 }

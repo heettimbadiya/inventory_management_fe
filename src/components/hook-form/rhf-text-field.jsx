@@ -27,6 +27,7 @@ export default function RHFTextField({ name, helperText, type, ...other }) {
           }}
           error={!!error}
           helperText={error ? error?.message : helperText}
+          size="small"
           {...other}
         />
       )}

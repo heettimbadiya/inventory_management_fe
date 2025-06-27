@@ -65,7 +65,7 @@ export function useNavData() {
           {
             title: 'Service',
             path: paths.dashboard.service.list,
-            icon: ICONS.tour,
+            icon: ICONS.analytics,
           },
           {
             title: 'Rental',
