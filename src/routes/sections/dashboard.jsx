@@ -8,6 +8,12 @@ import { LoadingScreen } from 'src/components/loading-screen';
 import ClientCreatePage from '../../pages/dashboard/client/create';
 import ClientListPage from '../../pages/dashboard/client/list';
 import ClientEditPage from '../../pages/dashboard/client/edit';
+import EventListPage from '../../pages/dashboard/event/list';
+import EventCreatePage from '../../pages/dashboard/event/create';
+import EventEditPage from '../../pages/dashboard/event/edit';
+import RentalListPage from '../../pages/dashboard/rental/list';
+import RentalCreatePage from '../../pages/dashboard/rental/create';
+import RentalEditPage from '../../pages/dashboard/rental/edit';
 
 // ----------------------------------------------------------------------
 
@@ -43,6 +49,24 @@ export const dashboardRoutes = [
           { path: 'list', element: <ClientListPage /> },
           { path: 'new', element: <ClientCreatePage /> },
           { path: ':id/edit', element: <ClientEditPage /> },
+        ],
+      },
+      {
+        path: 'event',
+        children: [
+          { element: <EventListPage />, index: true },
+          { path: 'list', element: <EventListPage /> },
+          { path: 'new', element: <EventCreatePage /> },
+          { path: ':id/edit', element: <EventEditPage /> },
+        ],
+      },
+      {
+        path: 'rental',
+        children: [
+          { element: <RentalListPage />, index: true },
+          { path: 'list', element: <RentalListPage /> },
+          { path: 'new', element: <RentalCreatePage /> },
+          { path: ':id/edit', element: <RentalEditPage /> },
         ],
       },
       {

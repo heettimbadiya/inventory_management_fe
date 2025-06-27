@@ -28,6 +28,24 @@ export const paths = {
       edit: (id) => `${ROOTS.DASHBOARD}/client/${id}/edit`,
       new: `${ROOTS.DASHBOARD}/client/new`,
     },
+    event: {
+      root: `${ROOTS.DASHBOARD}/event`,
+      list: `${ROOTS.DASHBOARD}/event/list`,
+      edit: (id) => `${ROOTS.DASHBOARD}/event/${id}/edit`,
+      new: `${ROOTS.DASHBOARD}/event/new`,
+    },
+    service: {
+      root: `${ROOTS.DASHBOARD}/service`,
+      list: `${ROOTS.DASHBOARD}/service/list`,
+      edit: (id) => `${ROOTS.DASHBOARD}/service/${id}/edit`,
+      new: `${ROOTS.DASHBOARD}/service/new`,
+    },
+    rental: {
+      root: `${ROOTS.DASHBOARD}/rental`,
+      list: `${ROOTS.DASHBOARD}/rental/list`,
+      edit: (id) => `${ROOTS.DASHBOARD}/rental/${id}/edit`,
+      new: `${ROOTS.DASHBOARD}/rental/new`,
+    },
     group: {
       root: `${ROOTS.DASHBOARD}/group`,
       five: `${ROOTS.DASHBOARD}/group/five`,
