@@ -45,13 +45,10 @@ import { useGetService } from '../../../api/service';
 
 
 const TABLE_HEAD = [
-  { id: 'srNo', label: '#', width: 280 },
-  { id: 'clientName', label: 'Name' },
-  { id: 'email', label: 'Email', width: 230 },
-  { id: 'phoneNumber', label: 'Contact', width: 230 },
-  { id: 'type', label: 'Type', width: 230 },
-  { id: 'note', label: 'Note', width: 230 },
-  { id: 'address', label: 'Address', width: 230 },
+  { id: 'srNo', label: '#' },
+  { id: 'name', label: 'Name' },
+  { id: 'description', label: 'Description' },
+  { id: 'cost', label: 'Cost'},
   { id: '', width: 88 },
 ];
 
@@ -301,10 +298,9 @@ function applyFilter({ inputData, comparator, filters }) {
   if (name) {
     inputData = inputData.filter(
       (user) =>
-        user.clientName.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        user.desc.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        user.type.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        user.email.toLowerCase().indexOf(name.toLowerCase()) !== -1
+        user.name.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
+        user.description.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
+        user.cost.toLowerCase().indexOf(name.toLowerCase()) !== -1
     );
   }
 

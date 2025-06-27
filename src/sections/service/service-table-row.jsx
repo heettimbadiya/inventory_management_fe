@@ -23,7 +23,7 @@ export default function ServiceTableRow({
                                           onDeleteRow,
                                           index,
                                         }) {
-  const { clientName, email, phoneNumber, type,notes,address } = row;
+  const { name,description,cost } = row;
 
   const confirm = useBoolean();
 
@@ -35,13 +35,10 @@ export default function ServiceTableRow({
 
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{index + 1}</TableCell>
 
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{clientName}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{name}</TableCell>
 
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{email}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{phoneNumber}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{type}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{notes}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{address}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{description}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{cost}</TableCell>
 
 
         <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>

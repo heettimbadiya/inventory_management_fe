@@ -23,7 +23,7 @@ export default function EventTableRow({
                                           onDeleteRow,
                                           index,
                                         }) {
-  const { clientName, email, phoneNumber, type,notes,address } = row;
+  const { eventTitle,clientName, status, eventDate, location,teamNotes } = row;
 
   const confirm = useBoolean();
 
@@ -35,13 +35,13 @@ export default function EventTableRow({
 
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{index + 1}</TableCell>
 
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{clientName}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{eventTitle}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{clientName?.name}</TableCell>
 
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{email}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{phoneNumber}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{type}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{notes}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{address}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{status}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{eventDate}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{location}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{teamNotes}</TableCell>
 
 
         <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>

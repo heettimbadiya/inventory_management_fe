@@ -47,12 +47,12 @@ import { useGetEvent } from '../../../api/event';
 
 const TABLE_HEAD = [
   { id: 'srNo', label: '#', width: 280 },
-  { id: 'clientName', label: 'Name' },
-  { id: 'email', label: 'Email', width: 230 },
-  { id: 'phoneNumber', label: 'Contact', width: 230 },
-  { id: 'type', label: 'Type', width: 230 },
-  { id: 'note', label: 'Note', width: 230 },
-  { id: 'address', label: 'Address', width: 230 },
+  { id: 'eventTitle', label: 'Title' },
+  { id: 'clientName', label: 'Client Name', width: 230 },
+  { id: 'status', label: 'Status', width: 230 },
+  { id: 'eventDate', label: 'Date', width: 230 },
+  { id: 'location', label: 'Location', width: 230 },
+  { id: 'teamNotes', label: 'Team Notes', width: 230 },
   { id: '', width: 88 },
 ];
 
@@ -303,9 +303,7 @@ function applyFilter({ inputData, comparator, filters }) {
     inputData = inputData.filter(
       (user) =>
         user.clientName.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        user.desc.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        user.type.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        user.email.toLowerCase().indexOf(name.toLowerCase()) !== -1
+        user.eventTitle.toLowerCase().indexOf(name.toLowerCase()) !== -1
     );
   }
 
