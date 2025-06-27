@@ -298,9 +298,7 @@ function applyFilter({ inputData, comparator, filters }) {
   if (name) {
     inputData = inputData.filter(
       (user) =>
-        user.item.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        user.name.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        user.cost.toLowerCase().indexOf(name.toLowerCase()) !== -1
+        user.item.toLowerCase().indexOf(name.toLowerCase()) !== -1
     );
   }
 

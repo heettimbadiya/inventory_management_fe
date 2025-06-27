@@ -302,8 +302,8 @@ function applyFilter({ inputData, comparator, filters }) {
   if (name) {
     inputData = inputData.filter(
       (user) =>
-        user.clientName.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        user.eventTitle.toLowerCase().indexOf(name.toLowerCase()) !== -1
+        user?.clientId?.clientName.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
+        user?.eventTitle.toLowerCase().indexOf(name.toLowerCase()) !== -1
     );
   }
 

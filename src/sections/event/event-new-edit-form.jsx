@@ -28,7 +28,7 @@ import { DatePicker } from '@mui/x-date-pickers';
 
 // ----------------------------------------------------------------------
 
-const EVENT_STATUS = ['Pending', 'Confirmed', 'Cancelled', 'Completed'];
+const EVENT_STATUS = ['Planned', 'Confirmed', 'Completed', 'Cancelled']
 
 const EventSchema = Yup.object().shape({
   eventTitle: Yup.string().required('Event title is required'),
@@ -270,7 +270,7 @@ export default function EventNewEditForm({ eventId }) {
               )}
             />
           </Grid>
-          <Grid xs={12} md={4}>
+          <Grid xs={12} md={6}>
             <Controller
               name="eventDate"
               control={control}
@@ -291,14 +291,14 @@ export default function EventNewEditForm({ eventId }) {
               )}
             />
           </Grid>
-          <Grid xs={12} md={4}>
+          <Grid xs={12} md={6}>
             <RHFTextField
               name="location"
               label="Location"
               placeholder="Enter event location"
             />
           </Grid>
-          <Grid xs={12} md={4}>
+          <Grid xs={12} md={6}>
             <RHFAutocomplete
               name="status"
               label="Status"

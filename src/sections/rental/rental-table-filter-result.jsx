@@ -24,18 +24,6 @@ export default function EventTableFiltersResult({
     onFilters('name', '');
   }, [onFilters]);
 
-  const handleRemoveStatus = useCallback(() => {
-    onFilters('status', 'all');
-  }, [onFilters]);
-
-  const handleRemoveRole = useCallback(
-    (inputValue) => {
-      const newValue = filters.role.filter((item) => item !== inputValue);
-
-      onFilters('role', newValue);
-    },
-    [filters.role, onFilters]
-  );
 
   return (
     <Stack spacing={1.5} {...other}>
@@ -47,20 +35,7 @@ export default function EventTableFiltersResult({
       </Box>
 
       <Stack flexGrow={1} spacing={1} direction="row" flexWrap="wrap" alignItems="center">
-        {filters.status !== 'all' && (
-          <Block label="Status:">
-            <Chip size="small" label={filters.status} onDelete={handleRemoveStatus} />
-          </Block>
-        )}
-
-        {!!filters.role.length && (
-          <Block label="Role:">
-            {filters.role.map((item) => (
-              <Chip key={item} label={item} size="small" onDelete={() => handleRemoveRole(item)} />
-            ))}
-          </Block>
-        )}
-
+       
         {!!filters.name && (
           <Block label="Keyword:">
             <Chip label={filters.name} size="small" onDelete={handleRemoveKeyword} />

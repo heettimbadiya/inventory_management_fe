@@ -303,7 +303,7 @@ function applyFilter({ inputData, comparator, filters }) {
     inputData = inputData.filter(
       (user) =>
         user.clientName.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        user.desc.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
+        user.address.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
         user.type.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
         user.email.toLowerCase().indexOf(name.toLowerCase()) !== -1
     );
