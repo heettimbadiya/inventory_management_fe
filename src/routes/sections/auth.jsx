@@ -26,9 +26,7 @@ const authJwt = {
       path: 'login',
       element: (
         <GuestGuard>
-          <AuthClassicLayout>
             <JwtLoginPage />
-          </AuthClassicLayout>
         </GuestGuard>
       ),
     },
@@ -36,9 +34,7 @@ const authJwt = {
       path: 'register',
       element: (
         <GuestGuard>
-          <AuthClassicLayout title="Manage the job more effectively with Minimal">
             <JwtRegisterPage />
-          </AuthClassicLayout>
         </GuestGuard>
       ),
     },
