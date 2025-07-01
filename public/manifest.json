@@ -1,6 +1,6 @@
 {
-  "name": "Minimal UI",
-  "short_name": "Minimal UI",
+  "name": "Mediyom ERP",
+  "short_name": "Mediyom ERP",
   "display": "standalone",
   "start_url": "/",
   "theme_color": "#000000",
