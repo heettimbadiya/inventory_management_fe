@@ -41,8 +41,8 @@ export default function LeadsTableRow({
 
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{email}</TableCell>
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{phone}</TableCell>
-        <TableCell sx={{ whiteSpace: 'nowrap' }}>{source}</TableCell>
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{stage}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>{source}</TableCell>
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{notes || '-'}</TableCell>
         <TableCell sx={{ whiteSpace: 'nowrap' }}>
           {tags.length > 0 ? (
