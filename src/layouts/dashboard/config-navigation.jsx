@@ -3,6 +3,8 @@ import { useMemo } from 'react';
 import { paths } from 'src/routes/paths';
 
 import SvgColor from 'src/components/svg-color';
+import Iconify from '../../components/iconify/index.js';
+import { Icon } from '@iconify/react';
 
 // ----------------------------------------------------------------------
 
@@ -39,6 +41,7 @@ const ICONS = {
   ecommerce: icon('ic_ecommerce'),
   analytics: icon('ic_analytics'),
   dashboard: icon('ic_dashboard'),
+  leads: <Iconify icon="mdi:leads" width={24}  />,
 };
 
 // ----------------------------------------------------------------------
@@ -53,9 +56,13 @@ export function useNavData() {
         items: [
           { title: 'dashboard', path: paths.dashboard.root, icon: ICONS.dashboard },
           {
-            title: 'Client',
+            title: 'client',
             path: paths.dashboard.client.list,
             icon: ICONS.user,
+          },{
+            title: 'leads',
+            path: paths.dashboard.leads.list,
+            icon: ICONS.leads,
           },
           // {
           //   title: 'Event',

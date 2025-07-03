@@ -28,6 +28,12 @@ export const paths = {
       edit: (id) => `${ROOTS.DASHBOARD}/client/${id}/edit`,
       new: `${ROOTS.DASHBOARD}/client/new`,
     },
+    leads: {
+      root: `${ROOTS.DASHBOARD}/leads`,
+      list: `${ROOTS.DASHBOARD}/leads/list`,
+      edit: (id) => `${ROOTS.DASHBOARD}/leads/${id}/edit`,
+      new: `${ROOTS.DASHBOARD}/leads/new`,
+    },
     event: {
       root: `${ROOTS.DASHBOARD}/event`,
       list: `${ROOTS.DASHBOARD}/event/list`,
