@@ -17,6 +17,9 @@ import RentalEditPage from '../../pages/dashboard/rental/edit';
 import ServiceListPage from '../../pages/dashboard/service/list.jsx';
 import ServiceCreatePage from '../../pages/dashboard/service/create.jsx';
 import ServiceEditPage from '../../pages/dashboard/service/edit.jsx';
+import LeadsListPage from '../../pages/dashboard/leads/list.jsx';
+import LeadsCreatePage from '../../pages/dashboard/leads/create.jsx';
+import LeadsEditPage from '../../pages/dashboard/leads/edit.jsx';
 import EstimateListView from '../../sections/estimate/view/estimate-list-view.jsx';
 import EstimateCreateView from '../../sections/estimate/view/estimate-create-view.jsx';
 import EstimateEditView from '../../sections/estimate/view/estimate-edit-view.jsx';
@@ -55,6 +58,14 @@ export const dashboardRoutes = [
           { path: 'list', element: <ClientListPage /> },
           { path: 'new', element: <ClientCreatePage /> },
           { path: ':id/edit', element: <ClientEditPage /> },
+        ],
+      },{
+        path: 'leads',
+        children: [
+          { element: <LeadsListPage />, index: true },
+          { path: 'list', element: <LeadsListPage /> },
+          { path: 'new', element: <LeadsCreatePage /> },
+          { path: ':id/edit', element: <LeadsEditPage /> },
         ],
       },
       {
