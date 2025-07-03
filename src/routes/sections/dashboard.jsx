@@ -17,6 +17,9 @@ import RentalEditPage from '../../pages/dashboard/rental/edit';
 import ServiceListPage from '../../pages/dashboard/service/list.jsx';
 import ServiceCreatePage from '../../pages/dashboard/service/create.jsx';
 import ServiceEditPage from '../../pages/dashboard/service/edit.jsx';
+import EstimateListView from '../../sections/estimate/view/estimate-list-view.jsx';
+import EstimateCreateView from '../../sections/estimate/view/estimate-create-view.jsx';
+import EstimateEditView from '../../sections/estimate/view/estimate-edit-view.jsx';
 
 // ----------------------------------------------------------------------
 
@@ -55,6 +58,14 @@ export const dashboardRoutes = [
         ],
       },
       {
+        path: 'estimate',
+        children: [
+          { element: <EstimateListView />, index: true },
+          { path: 'list', element: <EstimateListView /> },
+          { path: 'new', element: <EstimateCreateView /> },
+          { path: ':id/edit', element: <EstimateEditView /> },
+        ],
+      },     {
         path: 'event',
         children: [
           { element: <EventListPage />, index: true },

@@ -35,25 +35,24 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 
-import { useGetClient } from 'src/api/client';
-import ClientTableRow from '../client-table-row';
-import ClientTableToolbar from '../client-table-toolbar';
-import ClientTableFiltersResult from '../client-table-filter-result';
-import { HOST_API } from '../../../config-global';
+import EstimateTableRow from '../estimate-table-row.jsx';
+import EstimateTableToolbar from '../estimate-table-toolbar.jsx';
+import ClientTableFiltersResult from '../estimate-table-filter-result.jsx';
 import axiosInstance from '../../../utils/axios.js';
+import { useGetEstimate } from '../../../api/estimate.js';
 
 // ----------------------------------------------------------------------
 
 
 const TABLE_HEAD = [
-  { id: 'srNo', label: '#' },
-  { id: 'clientName', label: 'Name' },
-  { id: 'email', label: 'Email' },
-  { id: 'phoneNumber', label: 'Contact' },
-  { id: 'type', label: 'Type' },
-  { id: 'note', label: 'Note' },
-  { id: 'address', label: 'Address' },
-  { id: '' },
+  { id: 'srNo', label: '#'},
+  { id: 'estimateTitle', label: 'Title' },
+  { id: 'clientName', label: 'Client Name'},
+  { id: 'status', label: 'Status'},
+  { id: 'estimateDate', label: 'Date'},
+  { id: 'location', label: 'Location'},
+  { id: 'teamNotes', label: 'Team Notes'},
+  { id: ''},
 ];
 
 const defaultFilters = {
@@ -63,31 +62,31 @@ const defaultFilters = {
 
 // ----------------------------------------------------------------------
 
-export default function ClientListView() {
+export default function EstimateListView() {
   const { enqueueSnackbar } = useSnackbar();
   const table = useTable();
   const settings = useSettingsContext();
   const router = useRouter();
   const confirm = useBoolean();
-  const { client, mutate } = useGetClient();
+  const { estimate, mutate } = useGetEstimate();
   const [tableData, setTableData] = useState([]);
   const [filters, setFilters] = useState(defaultFilters);
 
   useEffect(() => {
-    if (client) {
-      setTableData(client);
+    if (estimate) {
+      setTableData(estimate);
     }
-  }, [client]);
+  }, [estimate]);
 
 
   const handleDeleteRow = useCallback(async (id) => {
       try {
 
         const response = await axiosInstance.delete(
-          `/api/client/${id}`
+          `/api/estimate/${id}`
         );
         if (response?.data?.success == true) {
-          enqueueSnackbar('Client deleted successfully', { variant: 'success' });
+          enqueueSnackbar('Estimate deleted successfully', { variant: 'success' });
 
           confirm.onFalse();
           mutate();
@@ -96,7 +95,7 @@ export default function ClientListView() {
         }
       } catch(error) {
         console.error('Failed to delete inquiry', error);
-        enqueueSnackbar('Failed to delete client', { variant: 'error' });
+        enqueueSnackbar('Failed to delete estimate', { variant: 'error' });
       }
     },
     [enqueueSnackbar,mutate, table, tableData]
@@ -134,7 +133,7 @@ export default function ClientListView() {
 
   const handleEditRow = useCallback(
     (id) => {
-      router.push(paths.dashboard.client.edit(id));
+      router.push(paths.dashboard.estimate.edit(id));
     },
     [router]
   );
@@ -142,7 +141,7 @@ export default function ClientListView() {
 
   const handleViewRow = useCallback(
     (id) => {
-      router.push(paths.dashboard.client.edit(id));
+      router.push(paths.dashboard.estimate.edit(id));
     },
     [router]
   );
@@ -154,17 +153,17 @@ export default function ClientListView() {
           heading="List"
           links={[
             { name: 'Dashboard', href: paths.dashboard.root },
-            { name: 'Client', href: paths.dashboard.client.root },
+            { name: 'Estimate', href: paths.dashboard.estimate.root },
             { name: 'List' },
           ]}
           action={
             <Button
               component={RouterLink}
-              href={paths.dashboard.client.new}
+              href={paths.dashboard.estimate.new}
               variant="contained"
               startIcon={<Iconify icon="mingcute:add-line" />}
             >
-              New Client
+              New Estimate
             </Button>
           }
           sx={{
@@ -173,7 +172,7 @@ export default function ClientListView() {
         />
 
         <Card>
-          <ClientTableToolbar filters={filters} onFilters={handleFilters} />
+          <EstimateTableToolbar filters={filters} onFilters={handleFilters} />
 
           {canReset && (
             <ClientTableFiltersResult
@@ -224,7 +223,7 @@ export default function ClientListView() {
                       table.page * table.rowsPerPage + table.rowsPerPage
                     )
                     .map((row, index) => (
-                      <ClientTableRow
+                      <EstimateTableRow
                         key={row._id}
                         row={row}
                         index={index}
@@ -302,10 +301,8 @@ function applyFilter({ inputData, comparator, filters }) {
   if (name) {
     inputData = inputData.filter(
       (user) =>
-        user.clientName.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        user.address.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        user.type.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
-        user.email.toLowerCase().indexOf(name.toLowerCase()) !== -1
+        user?.clientId?.clientName.toLowerCase().indexOf(name.toLowerCase()) !== -1 ||
+        user?.estimateTitle.toLowerCase().indexOf(name.toLowerCase()) !== -1
     );
   }
 
