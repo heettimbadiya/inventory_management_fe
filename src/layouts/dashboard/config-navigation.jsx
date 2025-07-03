@@ -49,7 +49,7 @@ export function useNavData() {
       // OVERVIEW
       // ----------------------------------------------------------------------
       {
-        subheader: 'overview v5.7.0',
+        subheader: 'crm',
         items: [
           { title: 'dashboard', path: paths.dashboard.root, icon: ICONS.dashboard },
           {
@@ -57,21 +57,21 @@ export function useNavData() {
             path: paths.dashboard.client.list,
             icon: ICONS.user,
           },
-          {
-            title: 'Event',
-            path: paths.dashboard.event.list,
-            icon: ICONS.tour,
-          },
-          {
-            title: 'Service',
-            path: paths.dashboard.service.list,
-            icon: ICONS.analytics,
-          },
-          {
-            title: 'Rental',
-            path: paths.dashboard.rental.list,
-            icon: ICONS.banking,
-          },
+          // {
+          //   title: 'Event',
+          //   path: paths.dashboard.event.list,
+          //   icon: ICONS.tour,
+          // },
+          // {
+          //   title: 'Service',
+          //   path: paths.dashboard.service.list,
+          //   icon: ICONS.analytics,
+          // },
+          // {
+          //   title: 'Rental',
+          //   path: paths.dashboard.rental.list,
+          //   icon: ICONS.banking,
+          // },
         ],
       },
 
