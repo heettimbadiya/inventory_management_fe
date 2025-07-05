@@ -10,7 +10,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 import { DatePicker } from '@mui/x-date-pickers';
-import { TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import { useRouter } from 'src/routes/hooks';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { useResponsive } from 'src/hooks/use-responsive';
@@ -143,7 +143,15 @@ export default function ClientNewEditForm({ clientId }) {
             <CardHeader title={isEdit ? 'Edit Client' : 'Create Client'} />
           )}
 
-          <Stack spacing={3} sx={{ p: 3 }}>
+          <Stack spacing={3} sx={{ p: 3 }} >
+            <Box  rowGap={3}
+                  columnGap={2}
+                  display="grid"
+                  gridTemplateColumns={{
+                    xs: 'repeat(1, 1fr)',
+                    sm: 'repeat(2, 1fr)',
+                  }}>
+
             <RHFTextField
               name="clientName"
               label="Client Name"
@@ -175,6 +183,7 @@ export default function ClientNewEditForm({ clientId }) {
               label="Note"
               placeholder="Enter client note"
             />
+            </Box>
 
             <RHFTextField
               name="address"

@@ -10,7 +10,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 import { DatePicker } from '@mui/x-date-pickers';
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, Box, TextField } from '@mui/material';
 import { useRouter } from 'src/routes/hooks';
 import { useBoolean } from 'src/hooks/use-boolean';
 import { useResponsive } from 'src/hooks/use-responsive';
@@ -143,69 +143,77 @@ export default function LeadsNewEditForm({ leadId }) {
           {!mdUp && <CardHeader title={isEdit ? 'Edit Client' : 'Create Client'} />}
 
           <Stack spacing={3} sx={{ p: 3 }}>
-            <RHFTextField name="name" label="Name" placeholder="Name" />
-            <RHFTextField name="email" label="Email" placeholder="Email" />
-            <RHFTextField name="phone" label="Phone Number" placeholder="Enter contact" />{' '}
-            <RHFTextField name="source" label="Source" placeholder="Enter contact" />
-            <Controller
-              name="tags"
-              control={control}
-              defaultValue={[]}
-              render={({ field: { onChange, value }, fieldState: { error } }) => (
-                <Autocomplete
-                  multiple
-                  freeSolo
-                  options={[]} // No options
-                  value={value}
-                  size={"small"}
-                  onChange={(event, newValue) => {
-                    const uniqueValues = Array.from(new Set(newValue));
-                    onChange(uniqueValues);
-                  }}
-                  PopperComponent={() => null} // <<< Hides the dropdown entirely
-                  renderTags={(selected, getTagProps) =>
-                    selected.map((option, index) => (
-                      <Chip
-                        {...getTagProps({ index })}
-                        key={option}
-                        label={option}
-                        size="small"
-                        color="info"
-                        variant="soft"
-                      />
-                    ))
-                  }
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      label="Tags"
-                      placeholder="+ Tags"
-                      error={!!error}
-                      helperText={error?.message}
-                      size={'small'}
-                    />
-                  )}
-                  sx={{'.css-1gunrla-MuiInputBase-root-MuiOutlinedInput-root':{
-                      borderRadius:0.5,
-                    },
-                    '.css-17ceore-MuiSvgIcon-root':{
-                      color:"#131416",
-                      height:"22px",
-                      width:"22px"
-                    },
-                    backgroundColor:"#F6F7F8"
-                  }}
-                />
-              )}
-            />
-            <RHFAutocomplete
-              name="stage"
-              label="Stage"
-              placeholder="Choose an stage"
-              fullWidth
-              options={LEAD_STAGE}
-              getOptionLabel={(option) => option}
-            />
+         <Box  rowGap={3}
+               columnGap={2}
+               display="grid"
+               gridTemplateColumns={{
+                 xs: 'repeat(1, 1fr)',
+                 sm: 'repeat(2, 1fr)',
+               }}>
+           <RHFTextField name="name" label="Name" placeholder="Name" />
+           <RHFTextField name="email" label="Email" placeholder="Email" />
+           <RHFTextField name="phone" label="Phone Number" placeholder="Enter contact" />{' '}
+           <RHFTextField name="source" label="Source" placeholder="Enter contact" />
+           <Controller
+             name="tags"
+             control={control}
+             defaultValue={[]}
+             render={({ field: { onChange, value }, fieldState: { error } }) => (
+               <Autocomplete
+                 multiple
+                 freeSolo
+                 options={[]} // No options
+                 value={value}
+                 size={"small"}
+                 onChange={(event, newValue) => {
+                   const uniqueValues = Array.from(new Set(newValue));
+                   onChange(uniqueValues);
+                 }}
+                 PopperComponent={() => null} // <<< Hides the dropdown entirely
+                 renderTags={(selected, getTagProps) =>
+                   selected.map((option, index) => (
+                     <Chip
+                       {...getTagProps({ index })}
+                       key={option}
+                       label={option}
+                       size="small"
+                       color="info"
+                       variant="soft"
+                     />
+                   ))
+                 }
+                 renderInput={(params) => (
+                   <TextField
+                     {...params}
+                     label="Tags"
+                     placeholder="+ Tags"
+                     error={!!error}
+                     helperText={error?.message}
+                     size={'small'}
+                   />
+                 )}
+                 sx={{'.css-1gunrla-MuiInputBase-root-MuiOutlinedInput-root':{
+                     borderRadius:0.5,
+                   },
+                   '.css-17ceore-MuiSvgIcon-root':{
+                     color:"#131416",
+                     height:"22px",
+                     width:"22px"
+                   },
+                   backgroundColor:"#F6F7F8"
+                 }}
+               />
+             )}
+           />
+           <RHFAutocomplete
+             name="stage"
+             label="Stage"
+             placeholder="Choose an stage"
+             fullWidth
+             options={LEAD_STAGE}
+             getOptionLabel={(option) => option}
+           />
+         </Box>
             <RHFTextField name="notes" label="Notes" multiline rows={3} placeholder="Enter notes" />
           </Stack>
         </Card>

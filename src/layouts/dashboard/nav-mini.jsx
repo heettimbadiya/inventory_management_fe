@@ -5,12 +5,12 @@ import { useMockedUser } from 'src/hooks/use-mocked-user';
 
 import { hideScroll } from 'src/theme/css';
 
-import Logo from 'src/components/logo';
 import { NavSectionMini } from 'src/components/nav-section';
 
 import { NAV } from '../config-layout';
 import { useNavData } from './config-navigation';
 import NavToggleButton from '../common/nav-toggle-button';
+import WhiteLogo from '../../components/logo/white-logo';
 
 // ----------------------------------------------------------------------
 
@@ -44,7 +44,7 @@ export default function NavMini() {
           ...hideScroll.x,
         }}
       >
-        <Logo sx={{ mx: 'auto', my: 2 }} />
+        <WhiteLogo sx={{ mx: 'auto', my: 2 }} />
 
         <NavSectionMini
           data={navData}

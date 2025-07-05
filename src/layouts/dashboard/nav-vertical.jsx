@@ -10,13 +10,13 @@ import { usePathname } from 'src/routes/hooks';
 import { useResponsive } from 'src/hooks/use-responsive';
 import { useMockedUser } from 'src/hooks/use-mocked-user';
 
-import Logo from 'src/components/logo';
 import Scrollbar from 'src/components/scrollbar';
 import { NavSectionVertical } from 'src/components/nav-section';
 
 import { NAV } from '../config-layout';
 import { useNavData } from './config-navigation';
 import NavToggleButton from '../common/nav-toggle-button';
+import WhiteLogo from '../../components/logo/white-logo';
 
 // ----------------------------------------------------------------------
 
@@ -48,7 +48,7 @@ export default function NavVertical({ openNav, onCloseNav }) {
           backgroundColor: (theme) => theme.palette.mode === 'light' ? '#000' : '',
       }}
     >
-      <Logo sx={{ mt: 3, ml: 4, mb: 1 }} />
+      <WhiteLogo sx={{ mt: 3, ml: 4, mb: 1 }} />
 
       <NavSectionVertical
         data={navData}
