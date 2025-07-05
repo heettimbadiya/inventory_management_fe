@@ -80,8 +80,8 @@ export default function SettingsDrawer() {
       <BaseOptions
         value={settings.themeContrast}
         onChange={(newValue) => settings.onUpdate('themeContrast', newValue)}
-        options={['default', 'bold']}
-        icons={['contrast', 'contrast_bold']}
+        options={[ 'bold','default',]}
+        icons={[ 'contrast_bold','contrast',]}
       />
     </div>
   );

@@ -43,6 +43,8 @@ function NavHorizontal() {
             '& .simplebar-content': {
               display: 'flex',
             },
+            backgroundColor: (theme) => theme.palette.mode === 'light' ? '#000' : '',
+
           }}
         >
           <NavSectionHorizontal

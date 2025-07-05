@@ -40,6 +40,7 @@ export default function NavMini() {
           position: 'fixed',
           width: NAV.W_MINI,
           borderRight: (theme) => `dashed 1px ${theme.palette.divider}`,
+          backgroundColor: (theme) => theme.palette.mode === 'light' ? '#000' : '',
           ...hideScroll.x,
         }}
       >

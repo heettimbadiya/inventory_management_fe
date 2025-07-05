@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Tooltip from '@mui/material/Tooltip';
-import { styled } from '@mui/material/styles';
+import { alpha, styled } from '@mui/material/styles';
 import ListItemButton from '@mui/material/ListItemButton';
 
 import { RouterLink } from 'src/routes/components';
@@ -46,13 +46,19 @@ const NavItem = forwardRef(
         {...other}
       >
         {icon && (
-          <Box component="span" className="icon">
+          <Box component="span" className="icon" sx={{
+            color: "#fff",
+            opacity: 0.8,
+          }}>
             {icon}
           </Box>
         )}
 
         {title && (
-          <Box component="span" className="label">
+          <Box component="span" className="label" sx={{
+            color: "#fff",
+            opacity: 0.9,
+          }}>
             {title}
           </Box>
         )}
@@ -151,7 +157,10 @@ const StyledNavItem = styled(ListItemButton, {
     item: {
       ...theme.typography.body2,
       borderRadius: 6,
-      color: theme.palette.text.secondary,
+      color: "#fff",
+      '&:hover': {
+        backgroundColor: alpha("#fff", 0.09),
+      },
       fontWeight: theme.typography.fontWeightMedium,
     },
     icon: {

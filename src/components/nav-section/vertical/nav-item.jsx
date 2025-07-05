@@ -47,7 +47,10 @@ const NavItem = forwardRef(
         {...other}
       >
         {!subItem && icon && (
-          <Box component="span" className="icon">
+          <Box component="span" className="icon" sx={{
+            color: "#fff",
+            opacity: 0.8,
+          }}>
             {icon}
           </Box>
         )}
@@ -62,7 +65,10 @@ const NavItem = forwardRef(
 
         {title && (
           <Box component="span" sx={{ flex: '1 1 auto', minWidth: 0 }}>
-            <Box component="span" className="label">
+            <Box component="span" className="label"  sx={{
+              color: "#fff",
+              opacity: 0.9,
+            }}>
               {title}
             </Box>
 
@@ -179,8 +185,11 @@ const StyledNavItem = styled(ListItemButton, {
     item: {
       marginBottom: 4,
       borderRadius: 8,
-      color: theme.palette.text.secondary,
       padding: theme.spacing(0.5, 1, 0.5, 1.5),
+      color: "#fff",
+      '&:hover': {
+        backgroundColor: alpha("#fff", 0.09),
+      },
     },
     icon: {
       width: 24,
@@ -233,16 +242,15 @@ const StyledNavItem = styled(ListItemButton, {
         ...baseStyles.arrow,
       },
       ...(active && {
-        color:
-          theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.primary.light,
-        backgroundColor: alpha(theme.palette.primary.main, 0.08),
+        color:"#fff",
+        backgroundColor: alpha("#fff", 0.08),
         '&:hover': {
-          backgroundColor: alpha(theme.palette.primary.main, 0.16),
+          backgroundColor: alpha("#fff", 0.16),
         },
       }),
       ...(opened && {
-        color: theme.palette.text.primary,
-        backgroundColor: theme.palette.action.hover,
+        color: "#ffff",
+        backgroundColor: "rgba(255, 255, 255,0.0)"
       }),
     }),
 
@@ -269,7 +277,7 @@ const StyledNavItem = styled(ListItemButton, {
           }),
           ...(active && {
             transform: 'scale(2)',
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: "#fff",
           }),
         },
       },
@@ -286,7 +294,7 @@ const StyledNavItem = styled(ListItemButton, {
         ...baseStyles.arrow,
       },
       ...(active && {
-        color: theme.palette.text.primary,
+        color: "#fff",
       }),
     }),
 
