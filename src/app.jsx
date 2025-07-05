@@ -42,7 +42,7 @@ export default function App() {
           themeDirection: 'ltr', //  'rtl' | 'ltr'
           themeContrast: 'bold', // 'default' | 'bold'
           themeLayout: 'vertical', // 'vertical' | 'horizontal' | 'mini'
-          themeColorPresets: 'default', // 'default' | 'cyan' | 'purple' | 'blue' | 'orange' | 'red'
+          themeColorPresets: 'black', // 'default' | 'cyan' | 'purple' | 'blue' | 'orange' | 'red'
           themeStretch: true,
         }}
       >
