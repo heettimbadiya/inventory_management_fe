@@ -47,13 +47,19 @@ const NavItem = forwardRef(
         {...other}
       >
         {icon && (
-          <Box component="span" className="icon">
+          <Box component="span" className="icon" sx={{
+            color: "#fff",
+            opacity: 0.8,
+          }}>
             {icon}
           </Box>
         )}
 
         {title && (
-          <Box component="span" className="label">
+          <Box component="span" className="label" sx={{
+            color: "#fff",
+            opacity: 0.9,
+          }}>
             {title}
           </Box>
         )}
@@ -158,7 +164,10 @@ const StyledNavItem = styled(ListItemButton, {
   const baseStyles = {
     item: {
       borderRadius: 6,
-      color: theme.palette.text.secondary,
+      color: "#fff",
+      '&:hover': {
+        backgroundColor: alpha("#fff", 0.09),
+      },
     },
     icon: {
       width: 22,
@@ -206,16 +215,15 @@ const StyledNavItem = styled(ListItemButton, {
         position: 'absolute',
       },
       ...(active && {
-        fontWeight: theme.typography.fontWeightBold,
-        backgroundColor: alpha(theme.palette.primary.main, 0.08),
-        color: lightMode ? theme.palette.primary.main : theme.palette.primary.light,
+        color:"#fff",
+        backgroundColor: alpha("#fff", 0.08),
         '&:hover': {
-          backgroundColor: alpha(theme.palette.primary.main, 0.16),
+          backgroundColor: alpha("#fff", 0.16),
         },
       }),
       ...(opened && {
-        color: theme.palette.text.primary,
-        backgroundColor: theme.palette.action.hover,
+        color: "#ffff",
+        backgroundColor: "rgba(255, 255, 255,0.0)"
       }),
     }),
 

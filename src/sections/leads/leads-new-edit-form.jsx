@@ -157,6 +157,7 @@ export default function LeadsNewEditForm({ leadId }) {
                   freeSolo
                   options={[]} // No options
                   value={value}
+                  size={"small"}
                   onChange={(event, newValue) => {
                     const uniqueValues = Array.from(new Set(newValue));
                     onChange(uniqueValues);
@@ -181,8 +182,19 @@ export default function LeadsNewEditForm({ leadId }) {
                       placeholder="+ Tags"
                       error={!!error}
                       helperText={error?.message}
+                      size={'small'}
                     />
                   )}
+                  sx={{'.css-1gunrla-MuiInputBase-root-MuiOutlinedInput-root':{
+                      borderRadius:0.5,
+                    },
+                    '.css-17ceore-MuiSvgIcon-root':{
+                      color:"#131416",
+                      height:"22px",
+                      width:"22px"
+                    },
+                    backgroundColor:"#F6F7F8"
+                  }}
                 />
               )}
             />

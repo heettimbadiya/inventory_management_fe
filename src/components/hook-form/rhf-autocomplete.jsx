@@ -107,7 +107,7 @@ export default function RHFAutocomplete({ name, label, type, helperText, placeho
                   );
                 })
               }
-              size="small"
+              // size="small"
               {...other}
             />
           );
@@ -134,6 +134,16 @@ export default function RHFAutocomplete({ name, label, type, helperText, placeho
             )}
             size="small"
             {...other}
+            sx={{'.css-1gunrla-MuiInputBase-root-MuiOutlinedInput-root':{
+                borderRadius:0.5,
+              backgroundColor:"#F6F7F8"
+              },
+              '.css-17ceore-MuiSvgIcon-root':{
+              color:"#131416",
+               height:"22px",
+               width:"22px"
+              },
+            }}
           />
         );
       }}

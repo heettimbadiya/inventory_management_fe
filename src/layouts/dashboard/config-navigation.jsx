@@ -67,7 +67,7 @@ export function useNavData() {
           {
             title: 'Estimate',
             path: paths.dashboard.estimate.list,
-            icon: ICONS.user,
+            icon: ICONS.file,
           },
           // {
           //   title: 'Event',

@@ -29,6 +29,16 @@ export default function RHFTextField({ name, helperText, type, ...other }) {
           helperText={error ? error?.message : helperText}
           size="small"
           {...other}
+          sx={{'.css-roqmai-MuiInputBase-root-MuiOutlinedInput-root':{
+            borderRadius:0.5,
+            },
+            ".css-aplpb4-MuiInputBase-input-MuiOutlinedInput-input":{
+              backgroundColor:"#F6F7F8"
+            },
+            ".css-1a4ei83-MuiInputBase-root-MuiOutlinedInput-root":{
+              backgroundColor:"#F6F7F8"
+            }
+          }}
         />
       )}
     />

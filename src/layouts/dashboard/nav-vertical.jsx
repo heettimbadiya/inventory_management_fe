@@ -45,6 +45,7 @@ export default function NavVertical({ openNav, onCloseNav }) {
           display: 'flex',
           flexDirection: 'column',
         },
+          backgroundColor: (theme) => theme.palette.mode === 'light' ? '#000' : '',
       }}
     >
       <Logo sx={{ mt: 3, ml: 4, mb: 1 }} />
