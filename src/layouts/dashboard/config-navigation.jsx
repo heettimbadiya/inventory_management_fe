@@ -59,22 +59,26 @@ export function useNavData() {
             title: 'client',
             path: paths.dashboard.client.list,
             icon: ICONS.user,
+          },{
+            title: 'leads',
+            path: paths.dashboard.leads.list,
+            icon: ICONS.leads,
           },
           {
             title: 'contact',
             path: paths.dashboard.contact.list,
             icon: ICONS.mail,
           },
-          // {
-          //   title: 'leads',
-          //   path: paths.dashboard.leads.list,
-          //   icon: ICONS.leads,
-          // },
-          // {
-          //   title: 'Estimate',
-          //   path: paths.dashboard.estimate.list,
-          //   icon: ICONS.file,
-          // },
+          {
+          title: 'Project',
+            path: paths.dashboard.project.list,
+            icon: ICONS.folder,
+          },
+          {
+            title: 'Estimate',
+            path: paths.dashboard.estimate.list,
+            icon: ICONS.file,
+          },
           // {
           //   title: 'Event',
           //   path: paths.dashboard.event.list,
