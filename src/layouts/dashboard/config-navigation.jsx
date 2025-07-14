@@ -65,7 +65,12 @@ export function useNavData() {
             icon: ICONS.leads,
           },
           {
-            title: 'Project',
+            title: 'contact',
+            path: paths.dashboard.contact.list,
+            icon: ICONS.mail,
+          },
+          {
+          title: 'Project',
             path: paths.dashboard.project.list,
             icon: ICONS.folder,
           },
