@@ -23,6 +23,9 @@ import LeadsEditPage from '../../pages/dashboard/leads/edit.jsx';
 import EstimateListView from '../../sections/estimate/view/estimate-list-view.jsx';
 import EstimateCreateView from '../../sections/estimate/view/estimate-create-view.jsx';
 import EstimateEditView from '../../sections/estimate/view/estimate-edit-view.jsx';
+import ContactCreatePage from '../../pages/dashboard/contact/create.jsx';
+import ContactListPage from '../../pages/dashboard/contact/list.jsx';
+import ContactEditPage from '../../pages/dashboard/contact/edit.jsx';
 
 // ----------------------------------------------------------------------
 
@@ -66,6 +69,15 @@ export const dashboardRoutes = [
           { path: 'list', element: <LeadsListPage /> },
           { path: 'new', element: <LeadsCreatePage /> },
           { path: ':id/edit', element: <LeadsEditPage /> },
+        ],
+      },
+      {
+        path: 'contact',
+        children: [
+          { element: <ContactListPage />, index: true },
+          { path: 'list', element: <ContactListPage /> },
+          { path: 'new', element: <ContactCreatePage /> },
+          { path: ':id/edit', element: <ContactEditPage /> },
         ],
       },
       {
