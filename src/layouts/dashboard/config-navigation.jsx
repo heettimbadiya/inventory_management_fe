@@ -55,15 +55,15 @@ export function useNavData() {
         subheader: 'crm',
         items: [
           { title: 'dashboard', path: paths.dashboard.root, icon: ICONS.dashboard },
-          {
-            title: 'client',
-            path: paths.dashboard.client.list,
-            icon: ICONS.user,
-          },{
-            title: 'leads',
-            path: paths.dashboard.leads.list,
-            icon: ICONS.leads,
-          },
+          // {
+          //   title: 'client',
+          //   path: paths.dashboard.client.list,
+          //   icon: ICONS.user,
+          // },{
+          //   title: 'leads',
+          //   path: paths.dashboard.leads.list,
+          //   icon: ICONS.leads,
+          // },
           {
             title: 'contact',
             path: paths.dashboard.contact.list,
@@ -74,11 +74,11 @@ export function useNavData() {
             path: paths.dashboard.project.list,
             icon: ICONS.folder,
           },
-          {
-            title: 'Estimate',
-            path: paths.dashboard.estimate.list,
-            icon: ICONS.file,
-          },
+          // {
+          //   title: 'Estimate',
+          //   path: paths.dashboard.estimate.list,
+          //   icon: ICONS.file,
+          // },
           // {
           //   title: 'Event',
           //   path: paths.dashboard.event.list,

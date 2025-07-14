@@ -25,7 +25,7 @@ export default function ProjectTableRow({ row, selected, onSelectRow, onEditRow,
         {/*</TableCell>*/}
         <TableCell>{index + 1}</TableCell>
         <TableCell>{name}</TableCell>
-        <TableCell>{contact.contact || '-'}</TableCell>
+        <TableCell>{contact?.contact || '-'}</TableCell>
         <TableCell>{type || '-'}</TableCell>
         <TableCell>{timezone || '-'}</TableCell>
         <TableCell>{fDate(startDate) || '-'}</TableCell>

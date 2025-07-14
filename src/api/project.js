@@ -6,17 +6,17 @@ import { HOST_API } from '../config-global';
 export function useGetProject() {
   const URL = `${HOST_API}/api/project`;
   const { data, isLoading, error, isValidating, mutate } = useSWR(URL, fetcher);
-
+  console.log(data,"adddaaaaaaaaa");
   const memoizedValue = useMemo(
     () => ({
-      projects: data.data || [],
+      projects: data?.data || [],
       projectLoading: isLoading,
       projectError: error,
       projectValidating: isValidating,
-      projectEmpty: !isLoading && !data?.projects?.length,
+      projectEmpty: !isLoading && !data?.data?.length,
       mutate,
     }),
-    [data?.projects, error, isLoading, isValidating, mutate]
+    [data?.data, error, isLoading, isValidating, mutate]
   );
 
   return memoizedValue;
