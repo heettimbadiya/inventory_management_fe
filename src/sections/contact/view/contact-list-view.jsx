@@ -1,5 +1,5 @@
+import isEqual from 'lodash/isEqual';
 import { useState, useCallback, useEffect } from 'react';
-import axiosInstance from '../../../utils/axios.js';
 import {
   Card,
   Table,
@@ -30,17 +30,21 @@ import {
   TableSelectedAction,
   TablePaginationCustom,
 } from 'src/components/table';
+import { useGetContact } from '../../../api/contact.js';
 import ContactTableRow from '../contact-table-row';
 import ContactTableToolbar from '../contact-table-toolbar';
-import { useGetContact } from '../../../api/contact.js';
+import ContactTableFiltersResult from '../contact-table-filter-result';
+import axiosInstance from '../../../utils/axios.js';
 
 const TABLE_HEAD = [
   { id: 'srNo', label: '#' },
   { id: 'fullName', label: 'Full Name' },
   { id: 'email', label: 'Email' },
-  { id: 'phoneNumber', label: 'Phone' },
+  { id: 'contact', label: 'Contact' },
   { id: 'organization', label: 'Organization' },
-  { id: 'lastInteraction', label: 'Last Interaction' },
+  { id: 'jobTitle', label: 'Job Title' },
+  { id: 'mailingEmail', label: 'Mailing Email' },
+  { id: 'additionalInfo', label: 'Additional Info' },
   { id: '' },
 ];
 
@@ -50,41 +54,56 @@ const defaultFilters = {
 
 export default function ContactListView() {
   const { enqueueSnackbar } = useSnackbar();
-  const {contact} = useGetContact()
   const table = useTable();
   const settings = useSettingsContext();
   const router = useRouter();
   const confirm = useBoolean();
-  const [tableData, setTableData] = useState(contact);
+  const { contact, mutate } = useGetContact();
+  const [tableData, setTableData] = useState([]);
   const [filters, setFilters] = useState(defaultFilters);
-  console.log(contact)
+
   useEffect(() => {
-    const fetchContacts = async () => {
-      try {
-        const response = await axiosInstance.get('/api/contact');
-        console.log(response.data)
-        setTableData(response.data.contacts || []);
-      } catch (error) {
-        enqueueSnackbar('Failed to fetch contacts', { variant: 'error' });
-      }
-    };
-    fetchContacts();
-  }, [enqueueSnackbar]);
+    if (contact) {
+      setTableData(contact);
+    }
+  }, [contact]);
 
   const handleDeleteRow = useCallback(async (id) => {
     try {
       const response = await axiosInstance.delete(`/api/contact/${id}`);
-      if (response?.data?.success) {
+      if (response?.data?.success === true) {
         enqueueSnackbar('Contact deleted successfully', { variant: 'success' });
-        setTableData((prev) => prev.filter((row) => row._id !== id));
         confirm.onFalse();
+        mutate();
       } else {
         enqueueSnackbar('Failed to delete contact', { variant: 'error' });
       }
     } catch (error) {
       enqueueSnackbar('Failed to delete contact', { variant: 'error' });
     }
-  }, [enqueueSnackbar, confirm]);
+  }, [enqueueSnackbar, mutate, table, tableData]);
+
+  const dataFiltered = applyFilter({
+    inputData: tableData,
+    comparator: getComparator(table.order, table.orderBy),
+    filters,
+  });
+
+  const denseHeight = table.dense ? 56 : 76;
+  const canReset = !isEqual(defaultFilters, filters);
+  const notFound = (!dataFiltered.length && canReset) || !dataFiltered.length;
+
+  const handleFilters = useCallback((name, value) => {
+    table.onResetPage();
+    setFilters((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  }, [table]);
+
+  const handleResetFilters = useCallback(() => {
+    setFilters(defaultFilters);
+  }, []);
 
   const handleEditRow = useCallback((id) => {
     router.push(paths.dashboard.contact.edit(id));
@@ -94,30 +113,11 @@ export default function ContactListView() {
     router.push(paths.dashboard.contact.edit(id));
   }, [router]);
 
-  const dataFiltered = tableData.filter((row) =>
-    row.fullName.toLowerCase().includes(filters.name.toLowerCase()) ||
-    row.email.toLowerCase().includes(filters.name.toLowerCase()) ||
-    row.organization.toLowerCase().includes(filters.name.toLowerCase())
-  );
-
-  const denseHeight = table.dense ? 56 : 76;
-  const canReset = filters.name !== '';
-  const notFound = (!dataFiltered.length && canReset) || !dataFiltered.length;
-
-  const handleFilters = useCallback((name, value) => {
-    table.onResetPage();
-    setFilters((prev) => ({ ...prev, [name]: value }));
-  }, [table]);
-
-  const handleResetFilters = useCallback(() => {
-    setFilters(defaultFilters);
-  }, []);
-
   return (
     <>
       <Container maxWidth={settings.themeStretch ? false : 'xl'}>
         <CustomBreadcrumbs
-          heading="Contacts"
+          heading="List"
           links={[
             { name: 'Dashboard', href: paths.dashboard.root },
             { name: 'Contact', href: paths.dashboard.contact.root },
@@ -135,11 +135,20 @@ export default function ContactListView() {
           }
           sx={{ mb: { xs: 3, md: 5 } }}
         />
+
         <Card>
           <ContactTableToolbar filters={filters} onFilters={handleFilters} />
+
           {canReset && (
-            <Button onClick={handleResetFilters} sx={{ m: 2 }}>Reset Filters</Button>
+            <ContactTableFiltersResult
+              filters={filters}
+              onFilters={handleFilters}
+              onResetFilters={handleResetFilters}
+              results={dataFiltered.length}
+              sx={{ p: 2.5, pt: 0 }}
+            />
           )}
+
           <TableContainer sx={{ position: 'relative', overflow: 'unset' }}>
             <TableSelectedAction
               dense={table.dense}
@@ -159,6 +168,7 @@ export default function ContactListView() {
                 </Tooltip>
               }
             />
+
             <Scrollbar>
               <Table size={table.dense ? 'small' : 'medium'} sx={{ minWidth: 960 }}>
                 <TableHeadCustom
@@ -169,6 +179,7 @@ export default function ContactListView() {
                   numSelected={table.selected.length}
                   onSort={table.onSort}
                 />
+
                 <TableBody>
                   {dataFiltered
                     .slice(
@@ -187,15 +198,18 @@ export default function ContactListView() {
                         onViewRow={() => handleViewRow(row._id)}
                       />
                     ))}
+
                   <TableEmptyRows
                     height={denseHeight}
                     emptyRows={emptyRows(table.page, table.rowsPerPage, dataFiltered.length)}
                   />
+
                   <TableNoData notFound={notFound} />
                 </TableBody>
               </Table>
             </Scrollbar>
           </TableContainer>
+
           <TablePaginationCustom
             count={dataFiltered.length}
             page={table.page}
@@ -207,17 +221,56 @@ export default function ContactListView() {
           />
         </Card>
       </Container>
+
       <ConfirmDialog
         open={confirm.value}
         onClose={confirm.onFalse}
         title="Delete"
-        content={<span>Are you sure you want to delete <strong>{table.selected.length}</strong> items?</span>}
+        content={
+          <>
+            Are you sure want to delete <strong> {table.selected.length} </strong> items?
+          </>
+        }
         action={
-          <Button variant="contained" color="error" onClick={confirm.onFalse}>
+          <Button
+            variant="contained"
+            color="error"
+            onClick={() => {
+              confirm.onFalse();
+            }}
+          >
             Delete
           </Button>
         }
       />
     </>
   );
+}
+
+// ----------------------------------------------------------------------
+
+function applyFilter({ inputData, comparator, filters }) {
+  const { name } = filters;
+
+  const stabilizedThis = inputData.map((el, index) => [el, index]);
+
+  stabilizedThis.sort((a, b) => {
+    const order = comparator(a[0], b[0]);
+    if (order !== 0) return order;
+    return a[1] - b[1];
+  });
+
+  inputData = stabilizedThis.map((el) => el[0]);
+
+  if (name) {
+    inputData = inputData.filter(
+      (user) =>
+        (user.fullName && user.fullName.toLowerCase().indexOf(name.toLowerCase()) !== -1) ||
+        (user.organization && user.organization.toLowerCase().indexOf(name.toLowerCase()) !== -1) ||
+        (user.email && user.email.toLowerCase().indexOf(name.toLowerCase()) !== -1) ||
+        (user.contact && user.contact.toLowerCase().indexOf(name.toLowerCase()) !== -1)
+    );
+  }
+
+  return inputData;
 }

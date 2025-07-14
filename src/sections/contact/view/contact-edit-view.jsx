@@ -4,9 +4,11 @@ import { paths } from 'src/routes/paths';
 import { useSettingsContext } from 'src/components/settings';
 import CustomBreadcrumbs from 'src/components/custom-breadcrumbs';
 import ContactNewEditForm from '../contact-new-edit-form';
+import { useGetContactById } from '../../../api/contact';
 
 export default function ContactEditView({ id }) {
   const settings = useSettingsContext();
+  const { contact, contactLoading } = useGetContactById(id);
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
       <CustomBreadcrumbs
@@ -18,11 +20,11 @@ export default function ContactEditView({ id }) {
         ]}
         sx={{ mb: { xs: 3, md: 5 } }}
       />
-      <ContactNewEditForm contactId={id} />
+      <ContactNewEditForm contact={contact} loading={contactLoading} />
     </Container>
   );
 }
 
 ContactEditView.propTypes = {
   id: PropTypes.string,
-}; 
+};

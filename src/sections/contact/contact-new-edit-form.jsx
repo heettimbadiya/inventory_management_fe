@@ -31,11 +31,11 @@ const ContactSchema = Yup.object().shape({
   additionalInfo: Yup.string(),
 });
 
-export default function ContactNewEditForm({ contactId }) {
+export default function ContactNewEditForm({ contact, loading }) {
   const router = useRouter();
   const mdUp = useResponsive('up', 'md');
   const { enqueueSnackbar } = useSnackbar();
-  const isEdit = Boolean(contactId);
+  const isEdit = Boolean(contact && contact._id);
 
   const methods = useForm({
     resolver: yupResolver(ContactSchema),
@@ -50,41 +50,33 @@ export default function ContactNewEditForm({ contactId }) {
       addProject: false,
       mailingEmail: '',
       additionalInfo: '',
+      ...contact,
     },
   });
 
   const { reset, handleSubmit, setValue, control, formState: { isSubmitting } } = methods;
 
   useEffect(() => {
-    const fetchContact = async () => {
-      if (!isEdit) return;
-      try {
-        const response = await axiosInstance.get(`/api/contact/${contactId}`);
-        const  data  = response.data.contact;
-        console.log("Data ",data);
-        reset({
-          fullName: data.fullName || '',
-          email: data.email || '',
-          contact: data.contact || '',
-          lastInteraction: data.lastInteraction ? new Date(data.lastInteraction) : null,
-          website: data.website || '',
-          organization: data.organization || '',
-          jobTitle: data.jobTitle || '',
-          addProject: data.addProject || false,
-          mailingEmail: data.mailingEmail || '',
-          additionalInfo: data.additionalInfo || '',
-        });
-      } catch (error) {
-        enqueueSnackbar('Failed to load contact data', { variant: 'error' });
-      }
-    };
-    fetchContact();
-  }, [contactId, isEdit, reset, enqueueSnackbar]);
+    if (contact) {
+      reset({
+        fullName: contact.fullName || '',
+        email: contact.email || '',
+        contact: contact.contact || '',
+        lastInteraction: contact.lastInteraction ? new Date(contact.lastInteraction) : null,
+        website: contact.website || '',
+        organization: contact.organization || '',
+        jobTitle: contact.jobTitle || '',
+        addProject: contact.addProject || false,
+        mailingEmail: contact.mailingEmail || '',
+        additionalInfo: contact.additionalInfo || '',
+      });
+    }
+  }, [contact, reset]);
 
   const onSubmit = handleSubmit(async (formData) => {
     try {
       if (isEdit) {
-        await axiosInstance.put(`/api/contact/${contactId}`, formData);
+        await axiosInstance.put(`/api/contact/${contact._id}`, formData);
         enqueueSnackbar('Contact updated successfully!', { variant: 'success' });
       } else {
         await axiosInstance.post(`/api/contact`, formData);
@@ -144,5 +136,6 @@ export default function ContactNewEditForm({ contactId }) {
 }
 
 ContactNewEditForm.propTypes = {
-  contactId: PropTypes.string,
+  contact: PropTypes.object,
+  loading: PropTypes.bool,
 };

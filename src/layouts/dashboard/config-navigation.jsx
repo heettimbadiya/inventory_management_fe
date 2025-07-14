@@ -55,11 +55,11 @@ export function useNavData() {
         subheader: 'crm',
         items: [
           { title: 'dashboard', path: paths.dashboard.root, icon: ICONS.dashboard },
-          // {
-          //   title: 'client',
-          //   path: paths.dashboard.client.list,
-          //   icon: ICONS.user,
-          // },
+          {
+            title: 'client',
+            path: paths.dashboard.client.list,
+            icon: ICONS.user,
+          },
           {
             title: 'contact',
             path: paths.dashboard.contact.list,

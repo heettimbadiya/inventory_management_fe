@@ -9,14 +9,32 @@ export function useGetContact() {
 
   const memoizedValue = useMemo(
     () => ({
-      contact: data?.contacts || [],
+      contact: data?.data || [],
       contactLoading: isLoading,
       contactError: error,
       contactValidating: isValidating,
-      contactEmpty: !isLoading && !data?.contacts?.length,
+      contactEmpty: !isLoading && !data?.data?.length,
       mutate,
     }),
-    [data?.contacts, error, isLoading, isValidating, mutate]
+    [data?.data, error, isLoading, isValidating, mutate]
+  );
+
+  return memoizedValue;
+}
+
+export function useGetContactById(id) {
+  const URL = id ? `${HOST_API}/api/contact/${id}` : null;
+  const { data, isLoading, error, isValidating, mutate } = useSWR(URL, fetcher);
+
+  const memoizedValue = useMemo(
+    () => ({
+      contact: data?.data || null,
+      contactLoading: isLoading,
+      contactError: error,
+      contactValidating: isValidating,
+      mutate,
+    }),
+    [data?.data, error, isLoading, isValidating, mutate]
   );
 
   return memoizedValue;
