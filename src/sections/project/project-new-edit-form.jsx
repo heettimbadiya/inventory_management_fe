@@ -21,6 +21,7 @@ import { DatePicker, TimePicker } from '@mui/x-date-pickers';
 import Link from '@mui/material/Link';
 import { useState } from 'react';
 import { Controller } from 'react-hook-form';
+import { useGetContact } from '../../api/contact';
 
 const PROJECT_TYPES = [
   'Wedding',
@@ -80,6 +81,7 @@ export default function ProjectNewEditForm({ projectId }) {
   const { enqueueSnackbar } = useSnackbar();
   const preview = useBoolean();
   const [showEndDate, setShowEndDate] = useState(false);
+  const {contact} = useGetContact()
 
   const isEdit = Boolean(projectId);
 
@@ -89,7 +91,7 @@ export default function ProjectNewEditForm({ projectId }) {
       name: '',
       type: '',
       stage: '',
-      contact: '',
+      contact: null,
       leadSource: '',
       timezone: '',
       startDate: null,
@@ -120,12 +122,16 @@ export default function ProjectNewEditForm({ projectId }) {
           stage: data.stage || '',
           leadSource: data.leadSource || '',
           timezone: data.timezone || '',
+          contact: data.contact || null,
           startDate: data.startDate ? new Date(data.startDate) : null,
-          startTime: data.startTime || null,
+          startTime: new Date(data.startTime) || null,
           endDate: data.endDate ? new Date(data.endDate) : null,
-          endTime: data.endTime || null,
+          endTime: new Date(data.endTime) || null,
           // Add other fields as needed
         });
+        if(data.endDate || data.endTime){
+          setShowEndDate(true)
+        }
       } catch (error) {
         console.error('Failed to fetch project:', error);
         enqueueSnackbar('Failed to load project data', { variant: 'error' });
@@ -137,7 +143,7 @@ export default function ProjectNewEditForm({ projectId }) {
   const onSubmit = handleSubmit(async (formData) => {
     try {
       const payload = {
-        ...formData,
+        ...formData,contact:formData?.contact?._id
       };
       if (isEdit) {
         await axiosInstance.put(`/api/project/${projectId}`, payload);
@@ -219,6 +225,14 @@ export default function ProjectNewEditForm({ projectId }) {
                 fullWidth
                 options={TIMEZONES}
                 getOptionLabel={(option) => option}
+              />
+              <RHFAutocomplete
+                name="contact"
+                label="Contact"
+                placeholder="Select"
+                fullWidth
+                options={contact}
+                getOptionLabel={(option) => option.fullName}
               />
             </Box>
             <Box rowGap={3} columnGap={2} display="grid" gridTemplateColumns={{ xs: 'repeat(1, 1fr)', sm: 'repeat(2, 1fr)' }}>

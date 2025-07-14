@@ -8,25 +8,28 @@ import { useBoolean } from 'src/hooks/use-boolean';
 import Iconify from 'src/components/iconify';
 import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
+import { fDate } from '../../utils/format-time';
+import Button from '@mui/material/Button';
 
 export default function ProjectTableRow({ row, selected, onSelectRow, onEditRow, onDeleteRow, index }) {
-  const { name, contact, type, date, location, description, leadSource } = row;
+  console.log(row,"rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+  const { name, contact, type, startDate, timezone, endDate, leadSource } = row;
   const confirm = useBoolean();
   const popover = usePopover();
 
   return (
     <>
       <TableRow hover selected={selected}>
-        <TableCell padding="checkbox">
-          <Checkbox checked={selected} onChange={onSelectRow} />
-        </TableCell>
+        {/*<TableCell padding="checkbox">*/}
+        {/*  <Checkbox checked={selected} onChange={onSelectRow} />*/}
+        {/*</TableCell>*/}
         <TableCell>{index + 1}</TableCell>
         <TableCell>{name}</TableCell>
-        <TableCell>{contact || '-'}</TableCell>
+        <TableCell>{contact.contact || '-'}</TableCell>
         <TableCell>{type || '-'}</TableCell>
-        <TableCell>{date || '-'}</TableCell>
-        <TableCell>{location || '-'}</TableCell>
-        <TableCell>{description || '-'}</TableCell>
+        <TableCell>{timezone || '-'}</TableCell>
+        <TableCell>{fDate(startDate) || '-'}</TableCell>
+        <TableCell>{fDate(endDate) || '-'}</TableCell>
         <TableCell>{leadSource || '-'}</TableCell>
         <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
           <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
@@ -61,9 +64,10 @@ export default function ProjectTableRow({ row, selected, onSelectRow, onEditRow,
         title="Delete"
         content="Are you sure want to delete?"
         action={
-          <IconButton color="error" onClick={() => { onDeleteRow(); confirm.onFalse(); }}>
-            <Iconify icon="solar:trash-bin-trash-bold" />
-          </IconButton>
+          <Button variant="contained" color="error" onClick={() => {onDeleteRow();
+            confirm.onFalse()}}>
+            Delete
+          </Button>
         }
       />
     </>
@@ -77,4 +81,4 @@ ProjectTableRow.propTypes = {
   onEditRow: PropTypes.func,
   onDeleteRow: PropTypes.func,
   index: PropTypes.number,
-}; 
+};

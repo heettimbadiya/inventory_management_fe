@@ -8,18 +8,12 @@ import Stack from '@mui/material/Stack';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Paper from '@mui/material/Paper';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Box from '@mui/material/Box';
 import { PROJECT_STAGES } from '../project-new-edit-form.jsx';
-import { useEffect } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Checkbox from '@mui/material/Checkbox';
-import Typography from '@mui/material/Typography';
 import {
   useTable,
   emptyRows,
@@ -31,23 +25,25 @@ import {
   TablePaginationCustom,
 } from 'src/components/table';
 import ProjectTableRow from '../project-table-row';
-// Placeholder for ProjectTableToolbar (implement as needed)
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import Iconify from 'src/components/iconify';
 import { RouterLink } from '../../../routes/components';
+import { useGetProject } from '../../../api/project';
+import { useRouter } from '../../../routes/hooks';
+import axiosInstance from '../../../utils/axios';
+import { useSnackbar } from '../../../components/snackbar';
+import { _id } from '../../../_mock';
 
-// PLACEHOLDER: Import your real project API hook when implemented
-// import { useGetProject } from '@/api/project';
 
 const TABLE_HEAD = [
   { id: 'srNo', label: '#' },
   { id: 'name', label: 'Project Name' },
   { id: 'contact', label: 'Contact' },
   { id: 'type', label: 'Type' },
-  { id: 'date', label: 'Date' },
-  { id: 'location', label: 'Location' },
-  { id: 'description', label: 'Description' },
+  { id: 'timezone', label: 'Timezone' },
+  { id: 'startDate', label: 'Start Date' },
+  { id: 'endDate', label: 'End Date' },
   { id: 'leadSource', label: 'Lead Source' },
   { id: '' },
 ];
@@ -82,11 +78,10 @@ function ProjectTableToolbar({ filters, onFilters }) {
 export function ProjectListView() {
   const settings = useSettingsContext();
   const table = useTable();
+  const {projects,mutate} = useGetProject()
   const [filters, setFilters] = useState(defaultFilters);
-  // PLACEHOLDER: Use your real project API hook here
-  // const { projects = [], isLoading } = useGetProject();
-  const projects = [];
-
+  const router = useRouter()
+  const { enqueueSnackbar } = useSnackbar();
   // Filtering logic
   const dataFiltered = applyFilter({
     inputData: projects,
@@ -102,7 +97,34 @@ export function ProjectListView() {
     table.onResetPage();
     setFilters((prev) => ({ ...prev, [name]: value }));
   };
+  const handleEditRow = useCallback(
+    (id) => {
+      router.push(paths.dashboard.project.edit(id));
+    },
+    [router]
+  );
 
+  const handleDeleteRow = useCallback(async (id) => {
+      try {
+
+        const response = await axiosInstance.delete(
+          `/api/project/${id}`
+        );
+        if (response?.data?.success == true) {
+          enqueueSnackbar('Project deleted successfully', { variant: 'success' });
+
+          confirm.onFalse();
+          mutate();
+        } else {
+          enqueueSnackbar('Failed to delete items', { variant: 'error' });
+        }
+      } catch(error) {
+        console.error('Failed to delete project', error);
+        enqueueSnackbar('Failed to delete project', { variant: 'error' });
+      }
+    },
+    [enqueueSnackbar,mutate, table]
+  );
   return (
     <Container maxWidth={settings.themeStretch ? false : 'lg'}>
       <CustomBreadcrumbs
@@ -118,7 +140,7 @@ export function ProjectListView() {
             variant="contained"
             startIcon={<Iconify icon="mingcute:add-line" />}
           >
-            New Client
+            New Project
           </Button>
         }
         sx={{ mb: { xs: 3, md: 5 } }}
@@ -161,7 +183,6 @@ export function ProjectListView() {
                 dataFiltered.map((row) => row.id)
               )
             }
-            // action={...} // Add bulk actions if needed
           />
           <Box sx={{ minWidth: 960 }}>
             <Table size={table.dense ? 'small' : 'medium'}>
@@ -172,12 +193,7 @@ export function ProjectListView() {
                 rowCount={dataFiltered.length}
                 numSelected={table.selected.length}
                 onSort={table.onSort}
-                onSelectAllRows={(checked) =>
-                  table.onSelectAllRows(
-                    checked,
-                    dataFiltered.map((row) => row.id)
-                  )
-                }
+                onSelectAllRows={null}
               />
               <TableBody>
                 {dataFiltered
@@ -187,13 +203,13 @@ export function ProjectListView() {
                   )
                   .map((row, index) => (
                     <ProjectTableRow
-                      key={row.id}
+                      key={row._id}
                       row={row}
                       index={index}
-                      selected={table.selected.includes(row.id)}
-                      onSelectRow={() => table.onSelectRow(row.id)}
-                      onEditRow={() => {}}
-                      onDeleteRow={() => {}}
+                      selected={table.selected.includes(row._id)}
+                      onSelectRow={() => table.onSelectRow(row._id)}
+                      onEditRow={() => handleEditRow(row._id)}
+                      onDeleteRow={() => handleDeleteRow(row._id)}
                     />
                   ))}
                 <TableEmptyRows
