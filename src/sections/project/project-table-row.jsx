@@ -10,12 +10,14 @@ import { ConfirmDialog } from 'src/components/custom-dialog';
 import CustomPopover, { usePopover } from 'src/components/custom-popover';
 import { fDate } from '../../utils/format-time';
 import Button from '@mui/material/Button';
+import { useState } from 'react';
+import DraftEmailDialog from './draft-email-dialog';
 
 export default function ProjectTableRow({ row, selected, onSelectRow, onEditRow, onDeleteRow, index }) {
-  console.log(row,"rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
   const { name, contact, type, startDate, timezone, endDate, leadSource } = row;
   const confirm = useBoolean();
   const popover = usePopover();
+  const [openDraftEmail, setOpenDraftEmail] = useState(false);
 
   return (
     <>
@@ -57,7 +59,17 @@ export default function ProjectTableRow({ row, selected, onSelectRow, onEditRow,
           <Iconify icon="solar:pen-bold" />
           Edit
         </MenuItem>
+        <MenuItem
+          onClick={() => {
+            setOpenDraftEmail(true);
+            popover.onClose();
+          }}
+        >
+          <Iconify icon="material-symbols:mail" />
+          Draft Email
+        </MenuItem>
       </CustomPopover>
+      <DraftEmailDialog open={openDraftEmail} onClose={() => setOpenDraftEmail(false)} project={row} />
       <ConfirmDialog
         open={confirm.value}
         onClose={confirm.onFalse}
