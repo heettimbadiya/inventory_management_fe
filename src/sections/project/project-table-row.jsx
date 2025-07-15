@@ -12,6 +12,8 @@ import { fDate } from '../../utils/format-time';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import DraftEmailDialog from './draft-email-dialog';
+import ReactMarkdown from 'react-markdown';
+import { Box } from '@mui/material';
 
 export default function ProjectTableRow({ row, selected, onSelectRow, onEditRow, onDeleteRow, index }) {
   const { name, contact, type, startDate, timezone, endDate, leadSource } = row;

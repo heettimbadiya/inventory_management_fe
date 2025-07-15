@@ -13,39 +13,66 @@ import { useState, useRef, useEffect } from 'react';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Iconify from 'src/components/iconify';
+import ReactMarkdown from 'react-markdown';
 
 function getCurrentDateString() {
   return new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
-const defaultPrompt = (project) =>
-  `Write a ready-to-send project summary email (with subject line and body) for the project "${project?.name || 'this project'}". If you lack real data, invent plausible details. Do not ask for more information, do not include instructions, and do not provide templates—just output the draft email.`;
-
-function parseGeminiEmail(text) {
-  if (!text) return { subject: '', body: '' };
-  const subjectMatch = text.match(/Subject\s*:?\s*(.*)/i);
-  let subject = subjectMatch ? subjectMatch[1].trim() : '';
-  let body = text;
-  if (subjectMatch) {
-    body = text.replace(subjectMatch[0], '').trim();
-  }
-  return { subject, body };
+function formatProjectData(project) {
+  if (!project) return '';
+  return `\nProject Name: ${project.name || '-'}\nName:${project.contact?.fullName || '-'}\nType: ${project.type || '-'}\nContact: ${project.contact?.contact || '-'}\nStart Date: ${project.startDate || '-'}\nEnd Date: ${project.endDate || '-'}\nTimezone: ${project.timezone || '-'}\nLead Source: ${project.leadSource || '-'}\n`.trim();
 }
 
-export default function DraftEmailDialog({ open, onClose, project }) {
+const defaultPrompt = (project) =>
+  `Based on all communication, files, and notes in Demo, draft an email that summarizes the project’s key points. Include a subject line optimized for high open rates and avoiding spam filters. Match the email to my tone of voice.`;
+
+export default function DraftEmailDialog({ open, onClose, project, forceEmptyPrompt }) {
   const [chat, setChat] = useState([]); // {role: 'user'|'ai', text: string, date: string}
-  const [input, setInput] = useState(defaultPrompt(project));
+  const [input, setInput] = useState(forceEmptyPrompt ? '' : defaultPrompt(project));
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const chatEndRef = useRef(null);
-
   useEffect(() => {
     if (open) {
       setChat([]);
-      setInput(defaultPrompt(project));
+      setInput(forceEmptyPrompt ? '' : defaultPrompt(project));
       setError('');
+      // Auto-generate draft if not forceEmptyPrompt
+      if (!forceEmptyPrompt) {
+        const prompt = `${defaultPrompt(project)}\n\nProject Details:\n${formatProjectData(project)}`;
+        // Simulate user message and auto-send
+        setChat([{ role: 'user', text: defaultPrompt(project), date: getCurrentDateString() }]);
+        (async () => {
+          setLoading(true);
+          try {
+            const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+            const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + apiKey, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] }),
+            });
+            const data = await response.json();
+            let aiText = '';
+            if (data && data.candidates && data.candidates[0]?.content?.parts[0]?.text) {
+              aiText = data.candidates[0].content.parts[0].text;
+            } else {
+              aiText = 'Failed to generate draft. Please try again.';
+            }
+            setChat([
+              { role: 'user', text: defaultPrompt(project), date: getCurrentDateString() },
+              { role: 'ai', text: aiText, date: getCurrentDateString() },
+            ]);
+          } catch (err) {
+            setError('Error contacting Gemini AI: ' + (err.message || err));
+          } finally {
+            setLoading(false);
+            setInput('');
+          }
+        })();
+      }
     }
-  }, [open, project]);
+  }, [open, project, forceEmptyPrompt]);
 
   useEffect(() => {
     if (chatEndRef.current) {
@@ -180,19 +207,9 @@ export default function DraftEmailDialog({ open, onClose, project }) {
                       <Typography variant="caption" color="text.secondary">{msg.date}</Typography>
                     </Stack>
                     {msg.role === 'ai' ? (
-                      (() => {
-                        const { subject, body } = parseGeminiEmail(msg.text);
-                        return (
-                          <>
-                            {subject && (
-                              <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1 }}>
-                                Subject: {subject}
-                              </Typography>
-                            )}
-                            <Typography variant="body2" sx={{ whiteSpace: 'pre-line' }}>{body}</Typography>
-                          </>
-                        );
-                      })()
+                      <Box sx={{ fontSize: 15, lineHeight: 1.7 }}>
+                        <ReactMarkdown>{msg.text}</ReactMarkdown>
+                      </Box>
                     ) : (
                       <Typography variant="body2" sx={{ whiteSpace: 'pre-line' }}>{msg.text}</Typography>
                     )}
@@ -272,4 +289,5 @@ DraftEmailDialog.propTypes = {
   open: PropTypes.bool,
   onClose: PropTypes.func,
   project: PropTypes.object,
+  forceEmptyPrompt: PropTypes.bool,
 };
