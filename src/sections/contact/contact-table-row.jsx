@@ -7,6 +7,9 @@ import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
 import TableCell from '@mui/material/TableCell';
 import IconButton from '@mui/material/IconButton';
+import Chip from '@mui/material/Chip';
+import Box from '@mui/material/Box';
+import Label from '../../components/label';
 
 import { useBoolean } from 'src/hooks/use-boolean';
 
@@ -23,7 +26,7 @@ export default function ContactTableRow({
   onDeleteRow,
   index,
 }) {
-  const { fullName, email, contact, organization, jobTitle, addProject, mailingEmail, additionalInfo } = row;
+  const { fullName, email, contact, organization, jobTitle, addProject, mailingEmail, additionalInfo, tags = [], status = '' } = row;
 
   const confirm = useBoolean();
   const popover = usePopover();
@@ -38,6 +41,23 @@ export default function ContactTableRow({
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{organization || "-"}</TableCell>
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{jobTitle || "-"}</TableCell>
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{mailingEmail || "-"}</TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>
+          {Array.isArray(tags) && tags.length > 0 ? (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+              {tags.slice(0, 3).map((tag, idx) => (
+                <Chip key={idx} label={tag} size="small" color="info" variant="soft" />
+              ))}
+              {tags.length > 3 && (
+                <Box component="span" sx={{ ml: 0.5, fontWeight: 'bold' }}>…</Box>
+              )}
+            </Box>
+          ) : (
+            '-'
+          )}
+        </TableCell>
+        <TableCell sx={{ whiteSpace: 'nowrap' }}>
+          {status ? <Label variant="soft" color="primary">{status}</Label> : '-'}
+        </TableCell>
         <TableCell sx={{ whiteSpace: 'nowrap' }}>{additionalInfo || "-"}</TableCell>
         <TableCell align="right" sx={{ px: 1, whiteSpace: 'nowrap' }}>
           <IconButton color={popover.open ? 'inherit' : 'default'} onClick={popover.onOpen}>
