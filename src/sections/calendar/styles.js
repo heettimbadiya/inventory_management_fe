@@ -160,4 +160,8 @@ export const StyledCalendar = styled('div')(({ theme }) => ({
       borderColor: 'transparent',
     },
   },
+  // Add a rule for project events to show pointer cursor
+  '& .fc-event-project': {
+    cursor: 'pointer',
+  },
 }));

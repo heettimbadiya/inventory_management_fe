@@ -48,65 +48,18 @@ const defaultFilters = {
 
 export default function CalendarView() {
   const theme = useTheme();
-
   const settings = useSettingsContext();
-
   const smUp = useResponsive('up', 'sm');
-
   const openFilters = useBoolean();
-
   const [filters, setFilters] = useState(defaultFilters);
-
   const { events, eventsLoading } = useGetEvents();
   const { projects, projectLoading } = useGetProject();
   const router = useRouter();
 
   const dateError = isAfter(filters.startDate, filters.endDate);
 
-  const {
-    calendarRef,
-    //
-    view,
-    date,
-    //
-    onDatePrev,
-    onDateNext,
-    onDateToday,
-    onDropEvent,
-    onChangeView,
-    onSelectRange,
-    onClickEvent,
-    onResizeEvent,
-    onInitialView,
-    //
-    openForm,
-    onOpenForm,
-    onCloseForm,
-    //
-    selectEventId,
-    selectedRange,
-    //
-    onClickEventInFilters,
-  } = useCalendar();
-
-  const currentEvent = useEvent(events, selectEventId, selectedRange, openForm);
-
-  useEffect(() => {
-    onInitialView();
-  }, [onInitialView]);
-
-  const handleFilters = useCallback((name, value) => {
-    setFilters((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  }, []);
-
-  const handleResetFilters = useCallback(() => {
-    setFilters(defaultFilters);
-  }, []);
-
-  const canReset = !!filters.colors.length || (!!filters.startDate && !!filters.endDate);
+  // Remove all event form and editing logic
+  // Remove useCalendar and related state
 
   // Map projects to calendar events with unique colors
   const projectEvents = (projects || []).map((project, idx) => {
@@ -130,50 +83,45 @@ export default function CalendarView() {
   // Merge with existing events
   const allEvents = [...(events || []), ...projectEvents];
 
+  const handleFilters = useCallback((name, value) => {
+    setFilters((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  }, []);
+
+  const handleResetFilters = useCallback(() => {
+    setFilters(defaultFilters);
+  }, []);
+
+  const canReset = !!filters.colors.length || (!!filters.startDate && !!filters.endDate);
+
   const dataFiltered = applyFilter({
     inputData: allEvents,
     filters,
     dateError,
   });
 
-  const renderResults = (
-    <CalendarFiltersResult
-      filters={filters}
-      onFilters={handleFilters}
-      //
-      canReset={canReset}
-      onResetFilters={handleResetFilters}
-      //
-      results={dataFiltered.length}
-      sx={{ mb: { xs: 3, md: 5 } }}
-    />
-  );
-
-  // Custom event click handler
+  // Only allow navigation for project events
   const handleEventClick = useCallback(
     (arg) => {
       const { event } = arg;
-      // If this is a project event (id starts with 'project-'), navigate to project view
       if (event.id && typeof event.id === 'string' && event.id.startsWith('project-')) {
         const projectId = event.id.replace('project-', '');
         router.push(paths.dashboard.project.view(projectId));
-      } else if (event.extendedProps?.isProject && event.extendedProps?.projectId) {
-        // fallback for extendedProps
-        router.push(paths.dashboard.project.view(event.extendedProps.projectId));
-      } else {
-        onClickEvent(arg);
       }
     },
-    [router, onClickEvent]
+    [router]
   );
 
-  // Custom event content renderer
+  // Custom event content renderer (unchanged)
   const renderEventContent = (eventInfo) => {
     const isProject = eventInfo.event.extendedProps?.isProject;
     const projectColor = eventInfo.event.extendedProps?.projectColor;
     if (isProject) {
       return (
         <span
+          className="fc-event-project"
           style={{
             display: 'flex',
             alignItems: 'center',
@@ -185,6 +133,7 @@ export default function CalendarView() {
             margin: '0 2px',
             minHeight: 24,
             fontSize: 13,
+            // cursor: 'pointer', // now handled by CSS
           }}
         >
           <Iconify icon="mdi:briefcase-outline" width={16} height={16} style={{ marginRight: 4, color: projectColor }} />
@@ -192,9 +141,10 @@ export default function CalendarView() {
         </span>
       );
     }
-    // Default rendering for other events
     return <span>{eventInfo.event.title}</span>;
   };
+
+  // Remove all dialog, form, and event creation UI
 
   return (
     <>
@@ -203,60 +153,57 @@ export default function CalendarView() {
           direction="row"
           alignItems="center"
           justifyContent="space-between"
-          sx={{
-            mb: { xs: 3, md: 5 },
-          }}
+          sx={{ mb: { xs: 3, md: 5 } }}
         >
           <Typography variant="h4">Calendar</Typography>
-          <Button
-            variant="contained"
-            startIcon={<Iconify icon="mingcute:add-line" />}
-            onClick={onOpenForm}
-          >
-            New Event
-          </Button>
+          {/* Remove New Event Button */}
         </Stack>
 
-        {canReset && renderResults}
+        {canReset && (
+          <CalendarFiltersResult
+            filters={filters}
+            onFilters={handleFilters}
+            canReset={canReset}
+            onResetFilters={handleResetFilters}
+            results={dataFiltered.length}
+            sx={{ mb: { xs: 3, md: 5 } }}
+          />
+        )}
 
         <Card>
           <StyledCalendar>
             <CalendarToolbar
-              date={date}
-              view={view}
-              loading={eventsLoading}
-              onNextDate={onDateNext}
-              onPrevDate={onDatePrev}
-              onToday={onDateToday}
-              onChangeView={onChangeView}
+              date={new Date()}
+              view={smUp ? 'dayGridMonth' : 'listWeek'}
+              loading={eventsLoading || projectLoading}
+              onNextDate={() => {}}
+              onPrevDate={() => {}}
+              onToday={() => {}}
+              onChangeView={() => {}}
               onOpenFilters={openFilters.onTrue}
             />
-
             <Calendar
               weekends
-              editable
-              droppable
-              selectable
+              editable={false}
+              droppable={false}
+              selectable={false}
               rerenderDelay={10}
-              allDayMaintainDuration
-              eventResizableFromStart
-              ref={calendarRef}
-              initialDate={date}
-              initialView={view}
+              allDayMaintainDuration={false}
+              eventResizableFromStart={false}
+              initialDate={new Date()}
+              initialView={smUp ? 'dayGridMonth' : 'listWeek'}
               dayMaxEventRows={3}
               eventDisplay="block"
               events={dataFiltered}
               headerToolbar={false}
-              select={onSelectRange}
               eventClick={handleEventClick}
               eventContent={renderEventContent}
+              eventClassNames={(arg) => {
+                if (arg.event.extendedProps?.isProject) return ['fc-event-project'];
+                return [];
+              }}
               height={smUp ? 720 : 'auto'}
-              eventDrop={(arg) => {
-                onDropEvent(arg, updateEvent);
-              }}
-              eventResize={(arg) => {
-                onResizeEvent(arg, updateEvent);
-              }}
+              // Remove eventDrop, eventResize, select
               plugins={[
                 listPlugin,
                 dayGridPlugin,
@@ -268,43 +215,17 @@ export default function CalendarView() {
           </StyledCalendar>
         </Card>
       </Container>
-
-      <Dialog
-        fullWidth
-        maxWidth="xs"
-        open={openForm}
-        onClose={onCloseForm}
-        transitionDuration={{
-          enter: theme.transitions.duration.shortest,
-          exit: theme.transitions.duration.shortest - 80,
-        }}
-      >
-        <DialogTitle sx={{ minHeight: 76 }}>
-          {openForm && <> {currentEvent?.id ? 'Edit Event' : 'Add Event'}</>}
-        </DialogTitle>
-
-        <CalendarForm
-          currentEvent={currentEvent}
-          colorOptions={CALENDAR_COLOR_OPTIONS}
-          onClose={onCloseForm}
-        />
-      </Dialog>
-
       <CalendarFilters
         open={openFilters.value}
         onClose={openFilters.onFalse}
-        //
         filters={filters}
         onFilters={handleFilters}
-        //
         canReset={canReset}
         onResetFilters={handleResetFilters}
-        //
         dateError={dateError}
-        //
-        events={events}
+        events={allEvents}
         colorOptions={CALENDAR_COLOR_OPTIONS}
-        onClickEvent={onClickEventInFilters}
+        onClickEvent={() => {}}
       />
     </>
   );
