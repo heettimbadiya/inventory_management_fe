@@ -77,5 +77,12 @@ export const paths = {
       new: `${ROOTS.DASHBOARD}/project/new`,
       view: (id) => `${ROOTS.DASHBOARD}/project/${id}/view`,
     },
+    invoice: {
+      root: `${ROOTS.DASHBOARD}/invoice`,
+      new: `${ROOTS.DASHBOARD}/invoice/new`,
+      details: (id) => `${ROOTS.DASHBOARD}/invoice/${id}`,
+      edit: (id) => `${ROOTS.DASHBOARD}/invoice/${id}/edit`,
+      view: (id) => `${ROOTS.DASHBOARD}/invoice/${id}/view`,
+    },
   },
 };

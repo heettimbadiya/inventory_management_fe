@@ -79,6 +79,11 @@ export function useNavData() {
             path: paths.dashboard.calendar,
             icon: ICONS.calendar,
           },
+          {
+            title: 'Invoice',
+            path: paths.dashboard.invoice.root,
+            icon: ICONS.invoice,
+          },
           // {
           //   title: 'Estimate',
           //   path: paths.dashboard.estimate.list,

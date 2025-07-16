@@ -40,7 +40,10 @@ const PageFour = lazy(() => import('src/pages/dashboard/four'));
 const PageFive = lazy(() => import('src/pages/dashboard/five'));
 const PageSix = lazy(() => import('src/pages/dashboard/six'));
 const CalendarPage = lazy(() => import('src/pages/dashboard/calendar'));
-
+const InvoiceListPage = lazy(() => import('src/pages/dashboard/invoice/list'));
+const InvoiceDetailsPage = lazy(() => import('src/pages/dashboard/invoice/details'));
+const InvoiceCreatePage = lazy(() => import('src/pages/dashboard/invoice/new'));
+const InvoiceEditPage = lazy(() => import('src/pages/dashboard/invoice/edit'));
 // ----------------------------------------------------------------------
 
 export const dashboardRoutes = [
@@ -127,6 +130,16 @@ export const dashboardRoutes = [
           { path: 'new', element: <ProjectCreatePage /> },
           { path: ':id/edit', element: <ProjectEditPage /> },
           { path: ':id/view', element: <ProjectViewPage /> },
+        ],
+      },
+      {
+        path: 'invoice',
+        children: [
+          { element: <InvoiceListPage />, index: true },
+          { path: 'list', element: <InvoiceListPage /> },
+          { path: ':id/edit', element: <InvoiceEditPage /> },
+          { path: ':id/view', element: <InvoiceDetailsPage /> },
+          { path: 'new', element: <InvoiceCreatePage /> },
         ],
       },
       { path: 'calendar', element: <CalendarPage /> },

@@ -43,7 +43,10 @@ export const PROJECT_STAGES = [
   'Consult',
   'Proposal Sent',
   'Proposal Signed',
-  'Retainer',
+  'Retainer Paid',
+  'Planning',
+  'Completed',
+  'Archived',
 ];
 
 const LEAD_SOURCES = [
