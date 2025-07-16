@@ -24,11 +24,14 @@ import Select from '@mui/material/Select';
 import CircularProgress from '@mui/material/CircularProgress';
 import axiosInstance from 'src/utils/axios';
 import { PROJECT_STAGES } from './project-new-edit-form.jsx';
+import { useRouter } from '../../routes/hooks';
+import { paths } from '../../routes/paths';
 
 export default function ProjectTableRow({ row, selected, onSelectRow, onEditRow, onDeleteRow, index,mutate }) {
-  const { name, contact, type, startDate, timezone, endDate, leadSource } = row;
+  const { _id,name, contact, type, startDate, timezone, endDate, leadSource } = row;
   const confirm = useBoolean();
   const popover = usePopover();
+  const router = useRouter()
   const [openDraftEmail, setOpenDraftEmail] = useState(false);
   const [openMoveStage, setOpenMoveStage] = useState(false);
   const [stage, setStage] = useState(row.stage || PROJECT_STAGES[0]);
@@ -42,7 +45,7 @@ export default function ProjectTableRow({ row, selected, onSelectRow, onEditRow,
         {/*  <Checkbox checked={selected} onChange={onSelectRow} />*/}
         {/*</TableCell>*/}
         <TableCell>{index + 1}</TableCell>
-        <TableCell>{name}</TableCell>
+        <TableCell sx={{fontWeight:'bold',cursor:'pointer'}} onClick={() => router.push(paths.dashboard.project.view(_id))}>{name}</TableCell>
         <TableCell>{contact?.contact || '-'}</TableCell>
         <TableCell>{type || '-'}</TableCell>
         <TableCell>{timezone || '-'}</TableCell>
