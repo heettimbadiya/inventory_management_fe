@@ -33,6 +33,7 @@ export default function DraftEmailDialog({ open, onClose, project, forceEmptyPro
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const chatEndRef = useRef(null);
+  const inputRef = useRef(null);
   useEffect(() => {
     if (open) {
       setChat([]);
@@ -79,6 +80,13 @@ export default function DraftEmailDialog({ open, onClose, project, forceEmptyPro
       chatEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [chat, loading]);
+
+  // Focus the input after AI response
+  useEffect(() => {
+    if (!loading && input === '' && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [loading, input]);
 
   const handleSend = async () => {
     if (!input.trim()) return;
@@ -138,8 +146,9 @@ export default function DraftEmailDialog({ open, onClose, project, forceEmptyPro
         },
       }}
     >
-      <Box sx={{ position: 'relative', borderTopLeftRadius: 16, borderBottomLeftRadius: 16, overflow: 'hidden', height: '100vh', display: 'flex', flexDirection: 'column', bgcolor: '#fff' }}>
-        <Box sx={{ p: 2, pb: 1, borderBottom: '1px solid #ececec', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+      <Box sx={{ position: 'relative', borderTopLeftRadius: 16, borderBottomLeftRadius: 16, height: '100vh', display: 'flex', flexDirection: 'column', bgcolor: '#fff' }}>
+        {/* Sticky header */}
+        <Box sx={{ p: 2, pb: 1, borderBottom: '1px solid #ececec', display: 'flex', alignItems: 'center', justifyContent: 'space-between', position: 'sticky', top: 0, zIndex: 2, bgcolor: '#fff' }}>
           <DialogTitle sx={{ p: 0, fontSize: 18, fontWeight: 600, flex: 1 }}>Draft Email with Gemini AI</DialogTitle>
           <IconButton
             onClick={onClose}
@@ -152,25 +161,20 @@ export default function DraftEmailDialog({ open, onClose, project, forceEmptyPro
             <Iconify icon="eva:close-fill" width={22} height={22} />
           </IconButton>
         </Box>
+        <Divider sx={{ m: 0 }} />
         <DialogContent sx={{ p: 0, flex: 1, minHeight: 0 }}>
-          <Box sx={{
-            flex: 1,
-            minHeight: 0,
-            display: 'flex',
-            flexDirection: 'column',
-            height: 'calc(100vh - 120px)', // header + input bar
-            background: '#f7f8fa',
-            overflow: 'hidden',
-          }}>
+          <Box sx={{ flex: 1, minHeight: 0, display: 'flex', flexDirection: 'column', background: '#f7f8fa' }}>
             <Box
               sx={{
                 flex: 1,
+                minHeight: 0,
                 overflowY: 'auto',
                 px: 2,
                 py: 3,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: 2,
+                gap: 2.5,
+                background: '#f7f8fa',
               }}
             >
               {chat.length === 0 && (
@@ -192,7 +196,7 @@ export default function DraftEmailDialog({ open, onClose, project, forceEmptyPro
                       maxWidth: '80%',
                       bgcolor: msg.role === 'user' ? 'primary.100' : '#fff',
                       color: msg.role === 'user' ? 'primary.dark' : 'text.primary',
-                      borderRadius: 3,
+                      borderRadius: 3.5,
                       p: 2,
                       boxShadow: msg.role === 'ai' ? 1 : 0,
                       border: msg.role === 'ai' ? '1px solid #ececec' : 'none',
@@ -200,6 +204,7 @@ export default function DraftEmailDialog({ open, onClose, project, forceEmptyPro
                       mr: msg.role === 'ai' ? 2 : 0,
                       position: 'relative',
                       mb: 0.5,
+                      fontSize: 15,
                     }}
                   >
                     <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
@@ -207,7 +212,27 @@ export default function DraftEmailDialog({ open, onClose, project, forceEmptyPro
                       <Typography variant="caption" color="text.secondary">{msg.date}</Typography>
                     </Stack>
                     {msg.role === 'ai' ? (
-                      <Box sx={{ fontSize: 15, lineHeight: 1.7 }}>
+                      <Box
+                        sx={{
+                          fontSize: 15,
+                          lineHeight: 1.7,
+                          '& pre': {
+                            whiteSpace: 'pre-wrap',
+                            wordBreak: 'break-word',
+                            background: '#f5f5f5',
+                            borderRadius: 1,
+                            p: 1,
+                            fontSize: 13,
+                            overflowX: 'auto',
+                          },
+                          '& code': {
+                            whiteSpace: 'pre-wrap',
+                            wordBreak: 'break-word',
+                            fontFamily: 'monospace',
+                            fontSize: 13,
+                          },
+                        }}
+                      >
                         <ReactMarkdown>{msg.text}</ReactMarkdown>
                       </Box>
                     ) : (
@@ -218,7 +243,7 @@ export default function DraftEmailDialog({ open, onClose, project, forceEmptyPro
               ))}
               {loading && (
                 <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                  <Box sx={{ bgcolor: '#fff', borderRadius: 3, p: 2, boxShadow: 1, border: '1px solid #ececec', maxWidth: '80%' }}>
+                  <Box sx={{ bgcolor: '#fff', borderRadius: 3.5, p: 2, boxShadow: 1, border: '1px solid #ececec', maxWidth: '80%' }}>
                     <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 1 }}>
                       <Chip label="AI" size="small" color="primary" />
                       <Typography variant="caption" color="text.secondary">{getCurrentDateString()}</Typography>
@@ -231,9 +256,9 @@ export default function DraftEmailDialog({ open, onClose, project, forceEmptyPro
             </Box>
           </Box>
         </DialogContent>
-        <Divider />
+        <Divider sx={{ m: 0, borderColor: '#ececec' }} />
         <Box sx={{ p: 2, bgcolor: '#fff' }}>
-          <Stack direction="row" spacing={1} alignItems="flex-end">
+          <Stack direction="row" spacing={1.5} alignItems="flex-end">
             <TextField
               variant="outlined"
               placeholder="Type your message"
@@ -241,22 +266,23 @@ export default function DraftEmailDialog({ open, onClose, project, forceEmptyPro
               minRows={1}
               maxRows={4}
               fullWidth
-              value={input}
-              onChange={e => setInput(e.target.value)}
-              onKeyDown={handleInputKeyDown}
-              disabled={loading}
+              inputRef={inputRef}
               sx={{
                 background: '#f7f8fa',
-                borderRadius: 3,
+                borderRadius: 3.5,
                 boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
                 '& .MuiOutlinedInput-root': {
-                  borderRadius: 3,
-                  paddingRight: 0,
+                  borderRadius: 3.5,
+                  paddingRight: '48px', // space for the button
                 },
                 '& .MuiOutlinedInput-notchedOutline': {
                   borderColor: '#e0e3e7',
                 },
               }}
+              value={input}
+              onChange={e => setInput(e.target.value)}
+              onKeyDown={handleInputKeyDown}
+              disabled={loading}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -264,12 +290,41 @@ export default function DraftEmailDialog({ open, onClose, project, forceEmptyPro
                   </InputAdornment>
                 ),
                 endAdornment: (
-                  <InputAdornment position="end">
+                  <InputAdornment position="end" sx={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', zIndex: 2 }}>
                     <IconButton
                       onClick={handleSend}
                       color="primary"
                       disabled={loading || !input.trim()}
-                      sx={{ bgcolor: '#e3f2fd', borderRadius:"50px", ml: 1 }}
+                      sx={{
+                        bgcolor: '#1976d2',
+                        color: '#fff',
+                        width: 40,
+                        height: 40,
+                        minWidth: 40,
+                        minHeight: 40,
+                        boxShadow: '0 2px 8px rgba(25, 118, 210, 0.15)',
+                        border: '2px solid #fff',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        transition: 'all 0.18s cubic-bezier(.4,0,.2,1)',
+                        borderRadius: '50% !important',
+                        // mr: '-8px',
+                        '&:hover': {
+                          bgcolor: '#1565c0',
+                          transform: 'scale(1.08)',
+                          boxShadow: '0 4px 16px rgba(21, 101, 192, 0.18)',
+                        },
+                        '&:active': {
+                          transform: 'scale(0.98)',
+                        },
+                        '&.Mui-disabled': {
+                          bgcolor: '#e3e3e3',
+                          color: '#bdbdbd',
+                          boxShadow: 'none',
+                          border: '2px solid #f5f5f5',
+                        },
+                      }}
                     >
                       <Iconify icon="solar:arrow-up-linear" sx={{ fontSize: 22 }} />
                     </IconButton>

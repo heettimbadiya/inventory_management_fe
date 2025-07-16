@@ -14,12 +14,26 @@ import { useState } from 'react';
 import DraftEmailDialog from './draft-email-dialog';
 import ReactMarkdown from 'react-markdown';
 import { Box } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import CircularProgress from '@mui/material/CircularProgress';
+import axiosInstance from 'src/utils/axios';
+import { PROJECT_STAGES } from './project-new-edit-form.jsx';
 
-export default function ProjectTableRow({ row, selected, onSelectRow, onEditRow, onDeleteRow, index }) {
+export default function ProjectTableRow({ row, selected, onSelectRow, onEditRow, onDeleteRow, index,mutate }) {
   const { name, contact, type, startDate, timezone, endDate, leadSource } = row;
   const confirm = useBoolean();
   const popover = usePopover();
   const [openDraftEmail, setOpenDraftEmail] = useState(false);
+  const [openMoveStage, setOpenMoveStage] = useState(false);
+  const [stage, setStage] = useState(row.stage || PROJECT_STAGES[0]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   return (
     <>
@@ -63,6 +77,15 @@ export default function ProjectTableRow({ row, selected, onSelectRow, onEditRow,
         </MenuItem>
         <MenuItem
           onClick={() => {
+            setOpenMoveStage(true);
+            popover.onClose();
+          }}
+        >
+          <Iconify icon="solar:forward-bold" />
+          Move Stage
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
             setOpenDraftEmail(true);
             popover.onClose();
           }}
@@ -72,6 +95,52 @@ export default function ProjectTableRow({ row, selected, onSelectRow, onEditRow,
         </MenuItem>
       </CustomPopover>
       <DraftEmailDialog open={openDraftEmail} onClose={() => setOpenDraftEmail(false)} project={row} />
+      <Dialog open={openMoveStage} onClose={() => setOpenMoveStage(false)} maxWidth="xs" fullWidth>
+        <DialogTitle>Move project down the pipeline</DialogTitle>
+        <DialogContent>
+          <Box sx={{ mt: 1, mb: 2 }}>
+            <FormControl fullWidth>
+              <InputLabel id="stage-select-label">Select pipeline stage:</InputLabel>
+              <Select
+                labelId="stage-select-label"
+                value={stage}
+                label="Select pipeline stage:"
+                onChange={e => setStage(e.target.value)}
+                disabled={loading}
+              >
+                {PROJECT_STAGES.map((s) => (
+                  <MenuItem key={s} value={s}>{s}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            {error && <Box sx={{ color: 'error.main', mt: 1 }}>{error}</Box>}
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenMoveStage(false)} disabled={loading}>CANCEL</Button>
+          <Button
+            variant="contained"
+            disabled={loading || stage === row.stage}
+            onClick={async () => {
+              setLoading(true);
+              setError('');
+              try {
+                await axiosInstance.put(`/api/project/${row._id}`, { ...row, stage });
+                setOpenMoveStage(false);
+                mutate()
+                // Optionally: trigger a refresh or callback here
+              } catch (err) {
+                setError('Failed to move stage.');
+              } finally {
+                setLoading(false);
+              }
+            }}
+          >
+            {loading ? <CircularProgress size={20} /> : 'MOVE'}
+          </Button>
+        </DialogActions>
+      </Dialog>
       <ConfirmDialog
         open={confirm.value}
         onClose={confirm.onFalse}
