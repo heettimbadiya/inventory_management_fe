@@ -44,7 +44,9 @@ const TABLE_HEAD = [
   { id: 'organization', label: 'Organization' },
   { id: 'jobTitle', label: 'Job Title' },
   { id: 'mailingEmail', label: 'Mailing Email' },
-  { id: 'additionalInfo', label: 'Additional Info' },
+  { id: 'tags', label: 'Tags' },
+  { id: 'status', label: 'Status' },
+  { id: 'additionalInfo', label: 'Notes' },
   { id: '' },
 ];
 
