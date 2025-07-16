@@ -206,6 +206,7 @@ export function ProjectListView() {
                       key={row._id}
                       row={row}
                       index={index}
+                      mutate={mutate}
                       selected={table.selected.includes(row._id)}
                       onSelectRow={() => table.onSelectRow(row._id)}
                       onEditRow={() => handleEditRow(row._id)}
