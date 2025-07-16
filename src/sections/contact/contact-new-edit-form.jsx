@@ -30,7 +30,6 @@ const ContactSchema = Yup.object().shape({
   website: Yup.string().url('Invalid URL'),
   organization: Yup.string(),
   jobTitle: Yup.string(),
-  addProject: Yup.boolean(),
   mailingEmail: Yup.string().email('Invalid email format'),
   additionalInfo: Yup.string(),
   tags: Yup.array().required('Tags are required'),
@@ -53,7 +52,6 @@ export default function ContactNewEditForm({ contact, loading }) {
       website: '',
       organization: '',
       jobTitle: '',
-      addProject: false,
       mailingEmail: '',
       additionalInfo: '',
       tags: [],
@@ -74,7 +72,6 @@ export default function ContactNewEditForm({ contact, loading }) {
         website: contact.website || '',
         organization: contact.organization || '',
         jobTitle: contact.jobTitle || '',
-        addProject: contact.addProject || false,
         mailingEmail: contact.mailingEmail || '',
         additionalInfo: contact.additionalInfo || '',
         tags: contact.tags || [],
@@ -133,7 +130,6 @@ export default function ContactNewEditForm({ contact, loading }) {
                 <RHFTextField name="organization" label="Organization" placeholder="Add contact's organization" />
                 <RHFTextField name="jobTitle" label="Job Title" placeholder="Add job title or role" />
               </Box>
-              <FormControlLabel control={<Controller name="addProject" control={control} render={({ field }) => <Checkbox {...field} checked={field.value} />} />} label="Add to project" />
               <RHFTextField name="mailingEmail" label="Mailing Email" placeholder="Add mailing email" />
               <Controller
                 name="tags"
