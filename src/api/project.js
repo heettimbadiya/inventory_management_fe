@@ -20,3 +20,20 @@ export function useGetProject() {
 
   return memoizedValue;
 }
+
+export function useGetProjectById(id) {
+  const URL = id ? `${HOST_API}/api/project/${id}` : null;
+  const { data, isLoading, error, isValidating, mutate } = useSWR(URL, fetcher);
+  const memoizedValue = useMemo(
+    () => ({
+      project: data?.data || null,
+      projectLoading: isLoading,
+      projectError: error,
+      projectValidating: isValidating,
+      mutate,
+    }),
+    [data?.data, error, isLoading, isValidating, mutate]
+  );
+
+  return memoizedValue;
+}

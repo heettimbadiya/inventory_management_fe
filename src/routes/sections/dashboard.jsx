@@ -26,6 +26,7 @@ import EstimateEditView from '../../sections/estimate/view/estimate-edit-view.js
 import ProjectListPage from '../../pages/dashboard/project/list';
 import ProjectCreatePage from '../../pages/dashboard/project/create';
 import ProjectEditPage from '../../pages/dashboard/project/edit';
+import ProjectViewPage from '../../pages/dashboard/project/view';
 import ContactCreatePage from '../../pages/dashboard/contact/create.jsx';
 import ContactListPage from '../../pages/dashboard/contact/list.jsx';
 import ContactEditPage from '../../pages/dashboard/contact/edit.jsx';
@@ -38,6 +39,7 @@ const PageThree = lazy(() => import('src/pages/dashboard/three'));
 const PageFour = lazy(() => import('src/pages/dashboard/four'));
 const PageFive = lazy(() => import('src/pages/dashboard/five'));
 const PageSix = lazy(() => import('src/pages/dashboard/six'));
+const CalendarPage = lazy(() => import('src/pages/dashboard/calendar'));
 
 // ----------------------------------------------------------------------
 
@@ -124,8 +126,10 @@ export const dashboardRoutes = [
           { path: 'list', element: <ProjectListPage /> },
           { path: 'new', element: <ProjectCreatePage /> },
           { path: ':id/edit', element: <ProjectEditPage /> },
+          { path: ':id/view', element: <ProjectViewPage /> },
         ],
       },
+      { path: 'calendar', element: <CalendarPage /> },
       {
         path: 'group',
         children: [

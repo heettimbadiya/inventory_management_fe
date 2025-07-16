@@ -74,6 +74,11 @@ export function useNavData() {
             path: paths.dashboard.project.list,
             icon: ICONS.folder,
           },
+          {
+            title: 'Calendar',
+            path: paths.dashboard.calendar,
+            icon: ICONS.calendar,
+          },
           // {
           //   title: 'Estimate',
           //   path: paths.dashboard.estimate.list,

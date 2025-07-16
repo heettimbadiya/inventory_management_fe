@@ -22,6 +22,7 @@ export const paths = {
     one: `${ROOTS.DASHBOARD}/one`,
     two: `${ROOTS.DASHBOARD}/two`,
     three: `${ROOTS.DASHBOARD}/three`,
+    calendar: `${ROOTS.DASHBOARD}/calendar`,
     client: {
       root: `${ROOTS.DASHBOARD}/client`,
       list: `${ROOTS.DASHBOARD}/client/list`,
@@ -74,6 +75,7 @@ export const paths = {
       list: `${ROOTS.DASHBOARD}/project/list`,
       edit: (id) => `${ROOTS.DASHBOARD}/project/${id}/edit`,
       new: `${ROOTS.DASHBOARD}/project/new`,
+      view: (id) => `${ROOTS.DASHBOARD}/project/${id}/view`,
     },
   },
 };
