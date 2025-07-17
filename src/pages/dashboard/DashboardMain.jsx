@@ -26,7 +26,7 @@ const DashboardMain = () => {
     { label: 'New leads', value: data.leads?.length || 0, icon: 'mdi:account-plus' },
     { label: 'Unread messages', value: 0, icon: 'mdi:email-outline' },
     { label: 'Tasks', value: 0, icon: 'mdi:check-circle-outline' },
-    { label: '2025 bookings', value: data.scheduledProjects?.length || 0, icon: 'mdi:calendar-check-outline' },
+    { label: '2025 bookings', value: data.totalEarnings || 0, icon: 'mdi:calendar-check-outline' },
   ];
 
   // Leads for LeadsCard
@@ -41,7 +41,7 @@ const DashboardMain = () => {
     name: project.name,
     time: project.startTime || '',
   }));
-  
+
   // Notes for NotesCard
   const notesMessage = (data.notes && data.notes.length > 0) ? data.notes[0].additionalInfo : 'Keep all your client notes here. Free your mind with notes.';
 
@@ -106,7 +106,7 @@ const DashboardMain = () => {
                 </Stack>
                 <Box sx={{ textAlign: 'center', mt: 2 }}>
                   <Icon icon="mdi:email-open-outline" width={48} height={48} color="#bdbdbd" />
-                  <Typography variant="body2" sx={{ mt: 1 }}>You've read them all. <span role="img" aria-label="clap">👏</span></Typography>
+                  <Typography variant="body2" sx={{ mt: 1 }}>You've read them all. </Typography>
                   <Typography variant="caption" color="text.secondary">You done good 👏</Typography>
                   <Box sx={{ mt: 1 }}>
                     <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none' }}>Go to active projects</Button>
