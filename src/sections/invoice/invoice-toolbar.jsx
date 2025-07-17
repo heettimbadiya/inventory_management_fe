@@ -47,11 +47,11 @@ export default function InvoiceToolbar({ invoice, currentStatus, }) {
             </IconButton>
           </Tooltip>
 
-          <Tooltip title="View">
-            <IconButton onClick={view.onTrue}>
-              <Iconify icon="solar:eye-bold" />
-            </IconButton>
-          </Tooltip>
+          {/*<Tooltip title="View">*/}
+          {/*  <IconButton onClick={view.onTrue}>*/}
+          {/*    <Iconify icon="solar:eye-bold" />*/}
+          {/*  </IconButton>*/}
+          {/*</Tooltip>*/}
 
           <PDFDownloadLink
             document={<InvoicePDF invoice={invoice} currentStatus={currentStatus} />}
@@ -72,7 +72,7 @@ export default function InvoiceToolbar({ invoice, currentStatus, }) {
           </PDFDownloadLink>
 
           <Tooltip title="Print">
-            <IconButton>
+            <IconButton onClick={view.onTrue}>
               <Iconify icon="solar:printer-minimalistic-bold" />
             </IconButton>
           </Tooltip>
