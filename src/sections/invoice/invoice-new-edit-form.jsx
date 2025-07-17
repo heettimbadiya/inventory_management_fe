@@ -105,13 +105,13 @@ export default function InvoiceNewEditForm({ currentInvoice }) {
   // Handle form submit
   const onSubmit = handleSubmit(async (formData) => {
     loadingSave.onTrue();
-    console.log(formData,'formData');
     try {
       const payload = {
         ...formData,
         projectId: formData.projectId._id || formData.projectId.id || formData.projectId,
         contactId: formData.contactId._id || formData.contactId.id || formData.contactId,
         items: formData.items.map((item) => ({
+          title: item.title,
           description: item.description,
           quantity: Number(item.quantity),
           unitPrice: Number(item.unitPrice),

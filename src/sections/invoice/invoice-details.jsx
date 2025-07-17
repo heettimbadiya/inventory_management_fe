@@ -146,7 +146,7 @@ export default function InvoiceDetails({ invoice }) {
             component="img"
             alt="logo"
             src="/logo/logo.png"
-            sx={{ width: 76, height: 76 }}
+            sx={{ width: 76, height: 86 }}
           />
 
           <Stack spacing={1} alignItems={{ xs: 'flex-start', md: 'flex-end' }}>
