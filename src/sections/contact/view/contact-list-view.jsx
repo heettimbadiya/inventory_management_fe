@@ -9,6 +9,7 @@ import {
   TableBody,
   IconButton,
   TableContainer,
+  Stack,
 } from '@mui/material';
 import { paths } from 'src/routes/paths';
 import { useRouter } from 'src/routes/hooks';
@@ -35,6 +36,8 @@ import ContactTableRow from '../contact-table-row';
 import ContactTableToolbar from '../contact-table-toolbar';
 import ContactTableFiltersResult from '../contact-table-filter-result';
 import axiosInstance from '../../../utils/axios.js';
+import BulkImportContacts from '../BulkImportContacts';
+import Dialog from '@mui/material/Dialog';
 
 const TABLE_HEAD = [
   { id: 'srNo', label: '#' },
@@ -63,6 +66,7 @@ export default function ContactListView() {
   const { contact, mutate } = useGetContact();
   const [tableData, setTableData] = useState([]);
   const [filters, setFilters] = useState(defaultFilters);
+  const [importOpen, setImportOpen] = useState(false);
 
   useEffect(() => {
     if (contact) {
@@ -114,7 +118,7 @@ export default function ContactListView() {
   const handleViewRow = useCallback((id) => {
     router.push(paths.dashboard.contact.edit(id));
   }, [router]);
-
+const modelClose = () => setImportOpen(false)
   return (
     <>
       <Container maxWidth={settings.themeStretch ? false : 'xl'}>
@@ -126,14 +130,23 @@ export default function ContactListView() {
             { name: 'List' },
           ]}
           action={
-            <Button
-              component={RouterLink}
-              href={paths.dashboard.contact.new}
-              variant="contained"
-              startIcon={<Iconify icon="mingcute:add-line" />}
-            >
-              New Contact
-            </Button>
+            <Stack direction="row" spacing={2}>
+              <Button
+                component={RouterLink}
+                href={paths.dashboard.contact.new}
+                variant="contained"
+                startIcon={<Iconify icon="mingcute:add-line" />}
+              >
+                New Contact
+              </Button>
+              <Button
+                variant="outlined"
+                startIcon={<Iconify icon="mdi:upload" />}
+                onClick={() => setImportOpen(true)}
+              >
+                Bulk Import
+              </Button>
+            </Stack>
           }
           sx={{ mb: { xs: 3, md: 5 } }}
         />
@@ -245,6 +258,10 @@ export default function ContactListView() {
           </Button>
         }
       />
+
+      <Dialog open={importOpen} onClose={() => modelClose()} maxWidth="sm" fullWidth>
+        <BulkImportContacts modelClose={modelClose}/>
+      </Dialog>
     </>
   );
 }

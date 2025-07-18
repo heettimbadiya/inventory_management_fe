@@ -1,0 +1,4 @@
+fullName,email,contact,website,organization,jobTitle,mailingEmail,additionalInfo,tags,status,lastInteraction
+John Doe,john@example.com,9876543210,www.johndoe.com,John Inc.,Manager,john.mailing@example.com,Important client,"lead, vip",Contacted,01-09-2024
+Jane Smith,jane@example.com,9876543211,www.janesmith.com,Smith LLC,Developer,jane.mailing@example.com,Follow up next week,"engaged,prospect",Lead,28-08-2024
+Bob Taylor,bob@example.com,9876543212,www.bobtaylor.com,Taylor Group,Designer,bob.mailing@example.com,Interested in demo,"design, potential",Engaged,10-09-2024
