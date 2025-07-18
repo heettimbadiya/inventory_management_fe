@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 import { useMemo } from 'react';
 import { fetcher } from '../utils/axios';
+import axiosInstance from '../utils/axios';
 import { HOST_API } from '../config-global';
 
 export function useGetContact() {
@@ -38,4 +39,8 @@ export function useGetContactById(id) {
   );
 
   return memoizedValue;
+}
+
+export async function updateContactStage(id, stage) {
+  return axiosInstance.put(`/api/contact/${id}`, { stage });
 }

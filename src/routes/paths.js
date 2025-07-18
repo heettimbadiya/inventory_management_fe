@@ -23,6 +23,7 @@ export const paths = {
     two: `${ROOTS.DASHBOARD}/two`,
     three: `${ROOTS.DASHBOARD}/three`,
     calendar: `${ROOTS.DASHBOARD}/calendar`,
+    kanban: `${ROOTS.DASHBOARD}/kanban`,
     client: {
       root: `${ROOTS.DASHBOARD}/client`,
       list: `${ROOTS.DASHBOARD}/client/list`,

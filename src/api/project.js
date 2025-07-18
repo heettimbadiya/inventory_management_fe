@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 import { useMemo } from 'react';
 import { fetcher } from '../utils/axios';
+import axiosInstance from '../utils/axios';
 import { HOST_API } from '../config-global';
 
 export function useGetProject() {
@@ -36,4 +37,8 @@ export function useGetProjectById(id) {
   );
 
   return memoizedValue;
+}
+
+export async function updateProject(id, payload) {
+  return axiosInstance.put(`/api/project/${id}`, payload);
 }

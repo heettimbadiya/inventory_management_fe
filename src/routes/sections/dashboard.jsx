@@ -30,6 +30,7 @@ import ProjectViewPage from '../../pages/dashboard/project/view';
 import ContactCreatePage from '../../pages/dashboard/contact/create.jsx';
 import ContactListPage from '../../pages/dashboard/contact/list.jsx';
 import ContactEditPage from '../../pages/dashboard/contact/edit.jsx';
+// import Kanban from '../../pages/dashboard/kanban/kanban';
 
 // ----------------------------------------------------------------------
 
@@ -44,6 +45,7 @@ const InvoiceListPage = lazy(() => import('src/pages/dashboard/invoice/list'));
 const InvoiceDetailsPage = lazy(() => import('src/pages/dashboard/invoice/details'));
 const InvoiceCreatePage = lazy(() => import('src/pages/dashboard/invoice/new'));
 const InvoiceEditPage = lazy(() => import('src/pages/dashboard/invoice/edit'));
+const KanbanPage = lazy(() => import('src/pages/dashboard/kanban/kanban.jsx'));
 // ----------------------------------------------------------------------
 
 export const dashboardRoutes = [
@@ -143,6 +145,7 @@ export const dashboardRoutes = [
         ],
       },
       { path: 'calendar', element: <CalendarPage /> },
+      { path: 'kanban', element: <KanbanPage /> },
       {
         path: 'group',
         children: [
