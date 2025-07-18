@@ -24,7 +24,7 @@ export default function KanbanColumn({ stage, contacts, isProject, contactsList,
             boxShadow: snapshot.isDraggingOver ? '0 0 0 2px #c7d2fe' : '0 2px 6px rgba(0,0,0,0.04)',
             ...(isEmpty
               ? { height: '100px', minHeight: 'auto', flex: 'auto' }
-              : { height: `` }),
+              : { height: 'auto' }),
             display: 'flex',
             flexDirection: 'column',
           }}
