@@ -80,6 +80,11 @@ export function useNavData() {
             icon: ICONS.calendar,
           },
           {
+            title: 'Kanban',
+            path: paths.dashboard.kanban,
+            icon: ICONS.kanban,
+          },
+          {
             title: 'Invoice',
             path: paths.dashboard.invoice.root,
             icon: ICONS.invoice,

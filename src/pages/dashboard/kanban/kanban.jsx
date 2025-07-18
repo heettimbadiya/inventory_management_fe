@@ -6,6 +6,7 @@ import { DragDropContext } from 'react-beautiful-dnd';
 import { PROJECT_STAGES } from 'src/sections/project/project-new-edit-form.jsx';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 export default function Kanban() {
   const { projects, projectLoading, projectError, mutate } = useGetProject();
@@ -17,7 +18,6 @@ export default function Kanban() {
     setLocalProjects(projects);
   }, [projects]);
 
-  // Filter projects
   const filteredProjects = React.useMemo(() => {
     if (!filter) return localProjects;
     const lower = filter.toLowerCase();
@@ -28,7 +28,6 @@ export default function Kanban() {
     );
   }, [localProjects, filter]);
 
-  // Group projects by stage
   const columns = React.useMemo(() => {
     const grouped = {};
     PROJECT_STAGES.forEach((stage) => {
@@ -45,46 +44,46 @@ export default function Kanban() {
   const onDragEnd = async (result) => {
     const { source, destination, draggableId } = result;
     if (!destination || source.droppableId === destination.droppableId) return;
-    // Find the project
     const project = localProjects.find((p) => p._id.toString() === draggableId);
     if (!project) return;
-    // Optimistically update UI
+
     const updatedProjects = localProjects.map((p) =>
       p._id === project._id ? { ...p, stage: destination.droppableId } : p
     );
     setLocalProjects(updatedProjects);
-    // Persist change
+
     try {
       await updateProject(project._id, { ...project, stage: destination.droppableId });
-      mutate(); // revalidate
+      mutate();
     } catch (e) {
-      // Rollback on error
       setLocalProjects(localProjects);
       alert('Failed to update project stage');
     }
   };
 
-  if (projectLoading) return <div>Loading...</div>;
-  if (projectError) return <div>Error loading projects.</div>;
+  if (projectLoading) return <Typography>Loading...</Typography>;
+  if (projectError) return <Typography>Error loading projects.</Typography>;
 
   return (
-    <>
-      <Box sx={{ mb: 2, display: 'flex', justifyContent: 'flex-end' }}>
-        <TextField
-          label="Search projects"
-          value={filter}
-          onChange={e => setFilter(e.target.value)}
-          size="small"
-          sx={{ width: 300 }}
-        />
+    <Box sx={{ p: 3 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
+        <Typography variant="h5" fontWeight={600}>Kanban Board</Typography>
       </Box>
+
       <DragDropContext onDragEnd={onDragEnd}>
-        <div style={{ display: 'flex', gap: 24, overflowX: 'auto', padding: 16 }}>
+        <Box sx={{ display: 'flex', gap: 3, overflowX: 'auto', pb: 2 }}>
           {PROJECT_STAGES.map((stage) => (
-            <KanbanColumn key={stage} stage={stage} contacts={columns[stage]} isProject contactsList={contacts} mutateProject={mutate} />
+            <KanbanColumn
+              key={stage}
+              stage={stage}
+              contacts={columns[stage]}
+              isProject
+              contactsList={contacts}
+              mutateProject={mutate}
+            />
           ))}
-        </div>
+        </Box>
       </DragDropContext>
-    </>
+    </Box>
   );
-} 
+}

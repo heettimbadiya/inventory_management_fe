@@ -1,39 +1,31 @@
 import React from 'react';
 import KanbanCard from './KanbanCard';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-
-const STAGE_COLORS = {
-  Inquiry: '#e3f2fd',
-  'Questionnaire Sent': '#fff3e0',
-  'Follow Up': '#fce4ec',
-  'Brochure sent': '#e8f5e9',
-  Consult: '#ede7f6',
-  'Proposal Sent': '#f3e5f5',
-  'Proposal Signed': '#f9fbe7',
-  'Retainer Paid': '#e0f2f1',
-  Planning: '#fbe9e7',
-  Completed: '#f1f8e9',
-  Archived: '#eceff1',
-};
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
 
 export default function KanbanColumn({ stage, contacts, isProject, contactsList, mutateProject }) {
   return (
     <Droppable droppableId={stage}>
       {(provided, snapshot) => (
-        <div
+        <Paper
           ref={provided.innerRef}
           {...provided.droppableProps}
-          style={{
+          elevation={3}
+          sx={{
             minWidth: 320,
+            maxWidth: 350,
             flex: 1,
-            background: STAGE_COLORS[stage] || '#f4f6f8',
-            borderRadius: 12,
-            padding: 12,
-            transition: 'background 0.2s',
-            boxShadow: snapshot.isDraggingOver ? '0 4px 16px rgba(0,0,0,0.08)' : 'none',
+            p: 2,
+            bgcolor: '#fff',
+            borderRadius: 2,
+            transition: 'box-shadow 0.2s',
+            boxShadow: snapshot.isDraggingOver ? '0 0 0 2px #c7d2fe' : '0 2px 6px rgba(0,0,0,0.04)',
           }}
         >
-          <h2 style={{ fontWeight: 700, fontSize: 20, marginBottom: 12 }}>{stage}</h2>
+          <Typography variant="subtitle1" fontWeight={600} mb={2}>
+            {stage}
+          </Typography>
           {contacts.map((contact, idx) =>
             isProject && contact && contact._id ? (
               <Draggable key={contact._id} draggableId={contact._id.toString()} index={idx}>
@@ -44,19 +36,24 @@ export default function KanbanColumn({ stage, contacts, isProject, contactsList,
                     {...provided.dragHandleProps}
                     style={{
                       ...provided.draggableProps.style,
-                      margin: '12px 0',
-                      opacity: snapshot.isDragging ? 0.7 : 1,
+                      marginBottom: 16,
+                      opacity: snapshot.isDragging ? 0.75 : 1,
                     }}
                   >
-                    <KanbanCard contact={contact} isProject contactsList={contactsList} mutateProject={mutateProject} />
+                    <KanbanCard
+                      contact={contact}
+                      isProject
+                      contactsList={contactsList}
+                      mutateProject={mutateProject}
+                    />
                   </div>
                 )}
               </Draggable>
             ) : null
           )}
           {provided.placeholder}
-        </div>
+        </Paper>
       )}
     </Droppable>
   );
-} 
+}
