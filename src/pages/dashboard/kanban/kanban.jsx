@@ -71,7 +71,7 @@ export default function Kanban() {
       </Box>
 
       <DragDropContext onDragEnd={onDragEnd}>
-        <Box sx={{ display: 'flex', gap: 3, overflowX: 'auto', pb: 2 }}>
+        <Box sx={{ display: 'flex', gap: 3, overflowX: 'auto', pb: 2, height: 'calc(100vh - 180px)' }}>
           {PROJECT_STAGES.map((stage) => (
             <KanbanColumn
               key={stage}
@@ -80,6 +80,7 @@ export default function Kanban() {
               isProject
               contactsList={contacts}
               mutateProject={mutate}
+              columnHeight="100%"
             />
           ))}
         </Box>
