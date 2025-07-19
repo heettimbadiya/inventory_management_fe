@@ -11,6 +11,9 @@ import NotesCard from './components/NotesCard';
 import TasksCard from './components/TasksCard';
 import { Icon } from '@iconify/react';
 import { useGetDashboard } from 'src/api/dashboard';
+import { useRouter } from '../../routes/hooks';
+import { paths } from '../../routes/paths';
+import { useAuthContext } from '../../auth/hooks';
 
 const DashboardMain = () => {
   const {
@@ -18,9 +21,16 @@ const DashboardMain = () => {
     dashboardLoading,
     dashboardError,
   } = useGetDashboard();
-
+const router = useRouter()
   const data = dashboard || { leads: [], scheduledProjects: [], notes: [] };
-
+  const now = new Date();
+  const hours = now.getHours();
+  const { user } = useAuthContext()
+  const getGreeting = () => {
+    if (hours < 12) return 'Good morning';
+    if (hours < 17) return 'Good afternoon';
+    return 'Good evening';
+  };
   // Stats with simple styling
   const stats = [
     { label: 'New leads', value: data.leads?.length || 0, icon: 'mdi:account-plus' },
@@ -99,7 +109,7 @@ const DashboardMain = () => {
       p: 3
     }}>
       {/* Header */}
-      <Box sx={{ mb: 4, textAlign: 'center' }}>
+      <Box sx={{ mb: 4, }}>
         <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 500 }}>
           {new Date().toLocaleDateString(undefined, {
             weekday: 'long',
@@ -113,7 +123,7 @@ const DashboardMain = () => {
           color: '#212121',
           mb: 1
         }}>
-          Good morning, Daksh
+          {getGreeting()}, {user?.lastName || user?.firstName}
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ fontWeight: 500 }}>
           Temperature's rising, business is thriving.
@@ -134,11 +144,15 @@ const DashboardMain = () => {
         {/* Left Column */}
         <Grid item xs={12} lg={3}>
           <Stack spacing={3}>
-            <CreateCard />
-            <ActivityCard
-              activities={upcomingProjects}
-              onGoToProjects={() => {}}
+            <CreateCard
+              onNewContact={() => router.push(paths.dashboard.contact.new)}
+              onNewProject={() => router.push(paths.dashboard.project.new)}
+              onNewInvoice={() => router.push(paths.dashboard.invoice.new)}
             />
+            {/*<ActivityCard*/}
+            {/*  activities={upcomingProjects}*/}
+            {/*  onGoToProjects={() => {}}*/}
+            {/*/>*/}
             <PaymentsCard
               summary="Your payments"
               amount={`$${data.totalEarnings || 0}`}
@@ -153,7 +167,7 @@ const DashboardMain = () => {
             <Grid item xs={12} md={6}>
               <LeadsCard
                 leads={recentLeads}
-                onGoToInquiries={() => {}}
+                onGoToInquiries={() => router.push(paths.dashboard.contact.list)}
               />
             </Grid>
             {/*<Grid item xs={12} md={6}>*/}
@@ -182,18 +196,18 @@ const DashboardMain = () => {
             {/*    </Box>*/}
             {/*  </Paper>*/}
             {/*</Grid>*/}
-            <Grid item xs={12} md={6}>
-              <PaymentsOverviewCard
-                title="Payments overview"
-                message="It's a quiet month. No payments are being processed right now."
-                onCheckInvoices={() => {}}
-              />
-            </Grid>
+            {/*<Grid item xs={12} md={6}>*/}
+              {/*<PaymentsOverviewCard*/}
+              {/*  title="Payments overview"*/}
+              {/*  message="It's a quiet month. No payments are being processed right now."*/}
+              {/*  onCheckInvoices={() => {}}*/}
+              {/*/>*/}
+            {/*</Grid>*/}
             <Grid item xs={12} md={6}>
               <NotesCard
                 title="Recent notes"
                 notes={recentNotes}
-                onAddNote={() => {}}
+                onAddNote={() => router.push(paths.dashboard.project.list)}
               />
             </Grid>
             {/*<Grid item xs={12} md={6}>*/}

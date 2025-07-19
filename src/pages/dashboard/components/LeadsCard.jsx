@@ -3,21 +3,21 @@ import { Card, CardContent, Typography, Button, Box, Avatar, Chip, Stack, Divide
 import { Icon } from '@iconify/react';
 
 const LeadsCard = ({ leads, onGoToInquiries, sx = {} }) => (
-  <Card sx={{ 
-    borderRadius: 2, 
+  <Card sx={{
+    borderRadius: 2,
     boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
     height: '100%',
     background: 'white',
-    ...sx 
+    ...sx
   }}>
     <CardContent sx={{ p: 3 }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
         <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
           Leads
         </Typography>
-        <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none' }}>?</Button>
+        {/*<Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none' }}>?</Button>*/}
       </Stack>
-      
+
       {leads.length === 0 ? (
         <Box sx={{ textAlign: 'center', py: 4 }}>
           <Icon icon="mdi:account-group-outline" width={48} height={48} color="#bdbdbd" />
@@ -30,8 +30,8 @@ const LeadsCard = ({ leads, onGoToInquiries, sx = {} }) => (
           {leads.map((lead, idx) => (
             <Box key={idx}>
               <Stack direction="row" spacing={2} alignItems="center">
-                <Avatar 
-                  sx={{ 
+                <Avatar
+                  sx={{
                     bgcolor: '#f5f5f5',
                     color: '#666',
                     width: 36,
@@ -52,15 +52,15 @@ const LeadsCard = ({ leads, onGoToInquiries, sx = {} }) => (
                     {lead.time}
                   </Typography>
                 </Box>
-                <Chip 
-                  label={lead.status} 
-                  size="small" 
-                  sx={{ 
+                <Chip
+                  label={lead.status}
+                  size="small"
+                  sx={{
                     bgcolor: '#f5f5f5',
                     color: '#666',
                     fontSize: '0.7rem',
                     height: 20
-                  }} 
+                  }}
                 />
               </Stack>
               {idx < leads.length - 1 && <Divider sx={{ mt: 2 }} />}
@@ -68,16 +68,16 @@ const LeadsCard = ({ leads, onGoToInquiries, sx = {} }) => (
           ))}
         </Stack>
       )}
-      
-      <Button 
-        variant="text" 
-        size="small" 
-        sx={{ 
-          mt: 2, 
+
+      <Button
+        variant="text"
+        size="small"
+        sx={{
+          mt: 2,
           textTransform: 'none',
           color: '#1976d2',
           fontSize: 12
-        }} 
+        }}
         onClick={onGoToInquiries}
       >
         Show all

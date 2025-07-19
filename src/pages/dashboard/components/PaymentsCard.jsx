@@ -15,7 +15,7 @@ const PaymentsCard = ({ summary, amount, onGoToPayments, sx = {} }) => (
         <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
           {summary}
         </Typography>
-        <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none' }}>?</Button>
+        {/*<Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none' }}>?</Button>*/}
       </Stack>
 
       <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>

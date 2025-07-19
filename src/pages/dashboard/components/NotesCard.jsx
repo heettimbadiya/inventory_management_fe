@@ -3,32 +3,20 @@ import { Card, CardContent, Typography, Button, Box, Avatar, Stack, Divider } fr
 import { Icon } from '@iconify/react';
 
 const NotesCard = ({ title, notes, onAddNote, sx = {} }) => (
-  <Card sx={{ 
-    borderRadius: 2, 
+  <Card sx={{
+    borderRadius: 2,
     boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
     height: '100%',
     background: 'white',
-    ...sx 
+    ...sx
   }}>
     <CardContent sx={{ p: 3 }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
         <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
           {title}
         </Typography>
-        <Button
-          size="small"
-          variant="text"
-          onClick={onAddNote}
-          sx={{
-            color: '#1976d2',
-            textTransform: 'none',
-            fontSize: 12
-          }}
-        >
-          + Note
-        </Button>
       </Stack>
-      
+
       {(!notes || notes.length === 0) ? (
         <Box sx={{ textAlign: 'center', py: 4 }}>
           <Icon icon="mdi:note-text-outline" width={48} height={48} color="#bdbdbd" />
@@ -41,8 +29,8 @@ const NotesCard = ({ title, notes, onAddNote, sx = {} }) => (
           {notes.map((note, idx) => (
             <Box key={idx}>
               <Stack direction="row" spacing={2} alignItems="flex-start">
-                <Avatar 
-                  sx={{ 
+                <Avatar
+                  sx={{
                     bgcolor: '#f5f5f5',
                     color: '#666',
                     width: 32,
@@ -70,8 +58,21 @@ const NotesCard = ({ title, notes, onAddNote, sx = {} }) => (
           ))}
         </Stack>
       )}
+      <Button
+        variant="text"
+        size="small"
+        sx={{
+          mt: 2,
+          textTransform: 'none',
+          color: '#1976d2',
+          fontSize: 12
+        }}
+        onClick={onAddNote}
+      >
+        Show all
+      </Button>
     </CardContent>
   </Card>
 );
 
-export default NotesCard; 
+export default NotesCard;
