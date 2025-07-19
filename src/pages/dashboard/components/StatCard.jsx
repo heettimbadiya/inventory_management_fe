@@ -4,7 +4,16 @@ import Iconify from 'src/components/iconify';
 
 const StatCard = ({ label, value, tooltip, valuePrefix, showDivider, sx = {} }) => (
   <Box sx={{ display: 'flex', alignItems: 'stretch', height: 1 }}>
-    <Card sx={{ flex: 1, boxShadow: 'none', borderRadius: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center', ...sx }}>
+    <Card sx={{ 
+      flex: 1, 
+      boxShadow: '0 1px 3px rgba(0,0,0,0.1)', 
+      borderRadius: 2, 
+      display: 'flex', 
+      flexDirection: 'column', 
+      justifyContent: 'center',
+      background: 'white',
+      ...sx 
+    }}>
       <CardContent sx={{ p: 3, textAlign: 'left', '&:last-child': { pb: 3 } }}>
         <Stack direction="row" alignItems="center" spacing={0.5} sx={{ mb: 0.5 }}>
           <Typography variant="subtitle2" color="text.secondary" sx={{ fontWeight: 600 }}>
