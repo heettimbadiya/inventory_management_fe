@@ -24,9 +24,9 @@ const DashboardMain = () => {
   // Stats (example: you can adjust based on your API)
   const stats = [
     { label: 'New leads', value: data.leads?.length || 0, icon: 'mdi:account-plus' },
-    { label: 'Unread messages', value: 0, icon: 'mdi:email-outline' },
-    { label: 'Tasks', value: 0, icon: 'mdi:check-circle-outline' },
-    { label: '2025 bookings', value: data.totalEarnings || 0, icon: 'mdi:calendar-check-outline' },
+    { label: 'Contacts', value: data?.totalContactsCount || 0, icon: 'mdi:email-outline' },
+    { label: 'Projects', value: data?.totalProjectsCount || 0, icon: 'mdi:check-circle-outline' },
+    { label: '2025 bookings', value: `$${data.totalEarnings}` || 0, icon: 'mdi:calendar-check-outline' },
   ];
 
   // Leads for LeadsCard
@@ -98,31 +98,31 @@ const DashboardMain = () => {
             <Grid item xs={12} md={6}>
               <LeadsCard leads={leads} onGoToInquiries={() => {}} />
             </Grid>
-            <Grid item xs={12} md={6}>
-              <Paper sx={{ p: 2, height: '100%' }}>
-                <Stack direction="row" alignItems="center" spacing={1}>
-                  <Typography variant="subtitle2" sx={{ flexGrow: 1 }}>Unread messages</Typography>
-                  <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none' }}>?</Button>
-                </Stack>
-                <Box sx={{ textAlign: 'center', mt: 2 }}>
-                  <Icon icon="mdi:email-open-outline" width={48} height={48} color="#bdbdbd" />
-                  <Typography variant="body2" sx={{ mt: 1 }}>You've read them all. </Typography>
-                  <Typography variant="caption" color="text.secondary">You done good 👏</Typography>
-                  <Box sx={{ mt: 1 }}>
-                    <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none' }}>Go to active projects</Button>
-                  </Box>
-                </Box>
-              </Paper>
-            </Grid>
+            {/*<Grid item xs={12} md={6}>*/}
+            {/*  <Paper sx={{ p: 2, height: '100%' }}>*/}
+            {/*    <Stack direction="row" alignItems="center" spacing={1}>*/}
+            {/*      <Typography variant="subtitle2" sx={{ flexGrow: 1 }}>Unread messages</Typography>*/}
+            {/*      <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none' }}>?</Button>*/}
+            {/*    </Stack>*/}
+            {/*    <Box sx={{ textAlign: 'center', mt: 2 }}>*/}
+            {/*      <Icon icon="mdi:email-open-outline" width={48} height={48} color="#bdbdbd" />*/}
+            {/*      <Typography variant="body2" sx={{ mt: 1 }}>You've read them all. </Typography>*/}
+            {/*      <Typography variant="caption" color="text.secondary">You done good 👏</Typography>*/}
+            {/*      <Box sx={{ mt: 1 }}>*/}
+            {/*        <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none' }}>Go to active projects</Button>*/}
+            {/*      </Box>*/}
+            {/*    </Box>*/}
+            {/*  </Paper>*/}
+            {/*</Grid>*/}
             <Grid item xs={12} md={6}>
               <PaymentsOverviewCard title="Payments overview" message="It's a quiet month. No payments are being processed right now." onCheckInvoices={() => {}} />
             </Grid>
             <Grid item xs={12} md={6}>
               <NotesCard title="Recent notes" message={notesMessage} onAddNote={() => {}} />
             </Grid>
-            <Grid item xs={12} md={6}>
-              <TasksCard tasks={tasks} onGoToTasks={() => {}} />
-            </Grid>
+            {/*<Grid item xs={12} md={6}>*/}
+            {/*  <TasksCard tasks={tasks} onGoToTasks={() => {}} />*/}
+            {/*</Grid>*/}
           </Grid>
         </Grid>
         {/* Right column */}
