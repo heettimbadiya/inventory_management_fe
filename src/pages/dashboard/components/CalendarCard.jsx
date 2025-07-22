@@ -25,10 +25,12 @@ const router = useRouter()
   return (
     <Card
       sx={{
-        borderRadius: 2,
+        borderRadius: 0,
         boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-        height: '100%',
+        height: '400px',
         background: 'white',
+        overflowY: 'auto',
+        overflowX: 'hidden',
         ...sx,
       }}
     >
@@ -38,6 +40,25 @@ const router = useRouter()
           <Typography variant="h6" sx={{ fontWeight: 600, color: '#212121' }}>
             Calendar
           </Typography>
+          <Box sx={{display: 'flex', alignItems: 'center' }}>
+            <Box sx={{display: 'flex', alignItems: 'center'}}>
+              <Typography variant="h6" sx={{
+                fontWeight: 700,
+                color: '#1976d2',
+                lineHeight: 1,
+              }}>
+                {currentDay}
+              </Typography>
+              <Typography variant="caption" sx={{
+                color: '#1976d2',
+                fontWeight: 600,
+                fontSize: '0.7rem'
+              }}>
+                {currentMonth}
+              </Typography>
+            </Box>
+            <Icon icon="mdi:calendar" width={20} height={20} color="#1976d2" style={{marginLeft: '10px'}} />
+          </Box>
           {/*<IconButton */}
           {/*  size="small" */}
           {/*  sx={{ */}
@@ -50,38 +71,24 @@ const router = useRouter()
         </Stack>
 
         {/* Calendar Icon with Date */}
-        <Box sx={{ textAlign: 'center', mb: 3 }}>
-          <Box sx={{
-            position: 'relative',
-            display: 'inline-block',
-            mb: 2
-          }}>
-            <Icon icon="mdi:calendar" width={64} height={64} color="#1976d2" />
-            <Box sx={{
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
-              transform: 'translate(-50%, -50%)',
-              textAlign: 'center'
-            }}>
-              <Typography variant="h6" sx={{
-                fontWeight: 700,
-                color: '#1976d2',
-                lineHeight: 1,
-                mb: 0.5
-              }}>
-                {currentDay}
-              </Typography>
-              <Typography variant="caption" sx={{
-                color: '#1976d2',
-                fontWeight: 600,
-                fontSize: '0.7rem'
-              }}>
-                {currentMonth}
-              </Typography>
-            </Box>
-          </Box>
-        </Box>
+        {/*<Box sx={{ textAlign: 'center', mb: 3 }}>*/}
+        {/*  <Box sx={{*/}
+        {/*    position: 'relative',*/}
+        {/*    display: 'inline-block',*/}
+        {/*    mb: 2*/}
+        {/*  }}>*/}
+        {/*    <Box sx={{*/}
+        {/*      position: 'absolute',*/}
+        {/*      top: '50%',*/}
+        {/*      left: '50%',*/}
+        {/*      transform: 'translate(-50%, -50%)',*/}
+        {/*      textAlign: 'center'*/}
+        {/*    }}>*/}
+
+
+        {/*    </Box>*/}
+        {/*  </Box>*/}
+        {/*</Box>*/}
 
         {/* Upcoming Events */}
         <Box sx={{ mb: 3 }}>

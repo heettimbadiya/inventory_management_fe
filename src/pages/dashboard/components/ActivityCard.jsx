@@ -1,14 +1,14 @@
-import React from 'react';
+  import React from 'react';
 import { Card, CardContent, Typography, Button, Box, Avatar, Chip, Stack, Divider } from '@mui/material';
 import { Icon } from '@iconify/react';
 
 const ActivityCard = ({ activities, onGoToProjects, sx = {} }) => (
-  <Card sx={{ 
-    borderRadius: 2, 
+  <Card sx={{
+    borderRadius: 0,
     boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-    height: '100%',
+    height: '400px',
     background: 'white',
-    ...sx 
+    ...sx
   }}>
     <CardContent sx={{ p: 3 }}>
       <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
@@ -17,7 +17,7 @@ const ActivityCard = ({ activities, onGoToProjects, sx = {} }) => (
         </Typography>
         <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none' }}>?</Button>
       </Stack>
-      
+
       {activities.length === 0 ? (
         <Box sx={{ textAlign: 'center', py: 4 }}>
           <Icon icon="mdi:calendar-clock-outline" width={48} height={48} color="#bdbdbd" />
@@ -40,8 +40,8 @@ const ActivityCard = ({ activities, onGoToProjects, sx = {} }) => (
           {activities.map((activity, idx) => (
             <Box key={idx}>
               <Stack direction="row" spacing={2} alignItems="flex-start">
-                <Avatar 
-                  sx={{ 
+                <Avatar
+                  sx={{
                     bgcolor: '#f5f5f5',
                     color: '#666',
                     width: 36,
@@ -63,25 +63,25 @@ const ActivityCard = ({ activities, onGoToProjects, sx = {} }) => (
                     {activity.time}
                   </Typography>
                   <Stack direction="row" spacing={1}>
-                    <Chip 
-                      label={activity.type} 
-                      size="small" 
-                      sx={{ 
+                    <Chip
+                      label={activity.type}
+                      size="small"
+                      sx={{
                         bgcolor: '#f5f5f5',
                         color: '#666',
                         fontSize: '0.7rem',
                         height: 20
-                      }} 
+                      }}
                     />
-                    <Chip 
-                      label={activity.stage} 
-                      size="small" 
-                      sx={{ 
+                    <Chip
+                      label={activity.stage}
+                      size="small"
+                      sx={{
                         bgcolor: '#f5f5f5',
                         color: '#666',
                         fontSize: '0.7rem',
                         height: 20
-                      }} 
+                      }}
                     />
                   </Stack>
                 </Box>
@@ -91,16 +91,16 @@ const ActivityCard = ({ activities, onGoToProjects, sx = {} }) => (
           ))}
         </Stack>
       )}
-      
-      <Button 
-        variant="text" 
-        size="small" 
-        sx={{ 
-          mt: 2, 
+
+      <Button
+        variant="text"
+        size="small"
+        sx={{
+          mt: 2,
           textTransform: 'none',
           color: '#1976d2',
           fontSize: 12
-        }} 
+        }}
         onClick={onGoToProjects}
       >
         Go to active projects
@@ -109,4 +109,4 @@ const ActivityCard = ({ activities, onGoToProjects, sx = {} }) => (
   </Card>
 );
 
-export default ActivityCard; 
+export default ActivityCard;
