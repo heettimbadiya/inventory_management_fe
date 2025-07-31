@@ -14,6 +14,7 @@ import { useGetDashboard } from 'src/api/dashboard';
 import { useRouter } from '../../routes/hooks';
 import { paths } from '../../routes/paths';
 import { useAuthContext } from '../../auth/hooks';
+import Container from '@mui/material/Container';
 
 const DashboardMain = () => {
   const {
@@ -103,47 +104,49 @@ const router = useRouter()
   );
 
   return (
+    <Container maxWidth={'lg'}>
     <Box sx={{
-      background: '#fafbfc',
       minHeight: '100vh',
-      p: 3
+      p: 0
     }}>
       {/* Header */}
-      <Box sx={{ mb: 4, }}>
-        <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 500 }}>
-          {new Date().toLocaleDateString(undefined, {
-            weekday: 'long',
-            month: 'long',
-            day: 'numeric',
-            year: 'numeric'
-          })}
-        </Typography>
-        <Typography variant="h4" sx={{
-          fontWeight: 700,
-          color: '#212121',
-          mb: 1
-        }}>
-          {getGreeting()}, {user?.lastName || user?.firstName}
-        </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ fontWeight: 500 }}>
-          Temperature's rising, business is thriving.
-        </Typography>
-      </Box>
+
+        <Box sx={{ mb: 4, }}>
+          <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 500 }}>
+            {new Date().toLocaleDateString(undefined, {
+              weekday: 'long',
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric'
+            })}
+          </Typography>
+          <Typography variant="h4" sx={{
+            fontWeight: 700,
+            color: '#212121',
+            mb: 1
+          }}>
+            {getGreeting()}, {user?.lastName || user?.firstName}
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ fontWeight: 500 }}>
+            Temperature's rising, business is thriving.
+          </Typography>
+        </Box>
+
 
       {/* Top Stats */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
+      <Grid container spacing={3} sx={{ mb: 2, mt: 4,p:3 }}>
         {stats.map((stat, i) => (
-          <Grid item xs={12} sm={6} md={3} key={i}>
+          <Grid item xs={12} sm={6} md={3} key={i} style={{background: "white", padding: '15px 24px'}}>
             <StatCard {...stat} />
           </Grid>
         ))}
       </Grid>
 
       {/* Main Content Grid */}
-      <Grid container spacing={3}>
+      <Grid container spacing={3} style={{marginBottom: "24px"}}>
         {/* Left Column */}
-        <Grid item xs={12} lg={3}>
-          <Stack spacing={3}>
+        <Grid item xs={12} lg={4} >
+          {/*<Stack spacing={3}>*/}
             <CreateCard
               onNewContact={() => router.push(paths.dashboard.contact.new)}
               onNewProject={() => router.push(paths.dashboard.project.new)}
@@ -153,101 +156,131 @@ const router = useRouter()
             {/*  activities={upcomingProjects}*/}
             {/*  onGoToProjects={() => {}}*/}
             {/*/>*/}
-            <PaymentsCard
-              summary="Your payments"
-              amount={`$${data.totalEarnings || 0}`}
-              onGoToPayments={() => {}}
-            />
-          </Stack>
+            {/*<PaymentsCard*/}
+            {/*  summary="Your payments"*/}
+            {/*  amount={`$${data.totalEarnings || 0}`}*/}
+            {/*  onGoToPayments={() => {}}*/}
+            {/*/>*/}
+          {/*</Stack>*/}
         </Grid>
 
-        {/* Center Column */}
-        <Grid item xs={12} lg={6}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={6}>
-              <LeadsCard
-                leads={recentLeads}
-                onGoToInquiries={() => router.push(paths.dashboard.contact.list)}
-              />
-            </Grid>
-            {/*<Grid item xs={12} md={6}>*/}
-            {/*  <Paper sx={{ */}
-            {/*    p: 3, */}
-            {/*    height: '100%', */}
-            {/*    borderRadius: 2,*/}
-            {/*    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',*/}
-            {/*    background: 'white'*/}
-            {/*  }}>*/}
-            {/*    <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>*/}
-            {/*      <Typography variant="subtitle2" sx={{ flexGrow: 1, fontWeight: 600 }}>*/}
-            {/*        Projects*/}
-            {/*      </Typography>*/}
-            {/*      <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none' }}>?</Button>*/}
-            {/*    </Stack>*/}
-            {/*    <Box sx={{ textAlign: 'center', mt: 2 }}>*/}
-            {/*      <Icon icon="mdi:briefcase-outline" width={48} height={48} color="#bdbdbd" />*/}
-            {/*      <Typography variant="body2" sx={{ mt: 1 }}>Manage your projects</Typography>*/}
-            {/*      <Typography variant="caption" color="text.secondary">Track progress and deadlines</Typography>*/}
-            {/*      <Box sx={{ mt: 1 }}>*/}
-            {/*        <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none', color: '#1976d2' }}>*/}
-            {/*          View all projects*/}
-            {/*        </Button>*/}
-            {/*      </Box>*/}
-            {/*    </Box>*/}
-            {/*  </Paper>*/}
-            {/*</Grid>*/}
-            {/*<Grid item xs={12} md={6}>*/}
-              {/*<PaymentsOverviewCard*/}
-              {/*  title="Payments overview"*/}
-              {/*  message="It's a quiet month. No payments are being processed right now."*/}
-              {/*  onCheckInvoices={() => {}}*/}
-              {/*/>*/}
-            {/*</Grid>*/}
-            <Grid item xs={12} md={6}>
-              <NotesCard
-                title="Recent notes"
-                notes={recentNotes}
-                onAddNote={() => router.push(paths.dashboard.project.list)}
-              />
-            </Grid>
-            {/*<Grid item xs={12} md={6}>*/}
-            {/*  <Paper sx={{*/}
-            {/*    p: 3,*/}
-            {/*    height: '100%',*/}
-            {/*    borderRadius: 2,*/}
-            {/*    boxShadow: '0 1px 3px rgba(0,0,0,0.1)',*/}
-            {/*    background: 'white'*/}
-            {/*  }}>*/}
-            {/*    <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>*/}
-            {/*      <Typography variant="subtitle2" sx={{ flexGrow: 1, fontWeight: 600 }}>*/}
-            {/*        Contacts*/}
-            {/*      </Typography>*/}
-            {/*      <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none' }}>?</Button>*/}
-            {/*    </Stack>*/}
-            {/*    <Box sx={{ textAlign: 'center', mt: 2 }}>*/}
-            {/*      <Icon icon="mdi:account-group-outline" width={48} height={48} color="#bdbdbd" />*/}
-            {/*      <Typography variant="body2" sx={{ mt: 1 }}>Manage your contacts</Typography>*/}
-            {/*      <Typography variant="caption" color="text.secondary">Keep track of all your clients</Typography>*/}
-            {/*      <Box sx={{ mt: 1 }}>*/}
-            {/*        <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none', color: '#1976d2' }}>*/}
-            {/*          View all contacts*/}
-            {/*        </Button>*/}
-            {/*      </Box>*/}
-            {/*    </Box>*/}
-            {/*  </Paper>*/}
-            {/*</Grid>*/}
-          </Grid>
+        {/*center*/}
+
+        <Grid item xs={12} lg={4}>
+          <LeadsCard
+            leads={recentLeads}
+            onGoToInquiries={() => router.push(paths.dashboard.contact.list)}
+          />
         </Grid>
+
+        {/* Center Column old */}
+        {/*<Grid item xs={12} lg={6}>*/}
+        {/*  <Grid container spacing={3}>*/}
+        {/*    <Grid item xs={12} md={6}>*/}
+        {/*      <LeadsCard*/}
+        {/*        leads={recentLeads}*/}
+        {/*        onGoToInquiries={() => router.push(paths.dashboard.contact.list)}*/}
+        {/*      />*/}
+        {/*    </Grid>*/}
+        {/*    <Grid item xs={12} md={6}>*/}
+        {/*      <Paper sx={{ */}
+        {/*        p: 3, */}
+        {/*        height: '100%', */}
+        {/*        borderRadius: 2,*/}
+        {/*        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',*/}
+        {/*        background: 'white'*/}
+        {/*      }}>*/}
+        {/*        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>*/}
+        {/*          <Typography variant="subtitle2" sx={{ flexGrow: 1, fontWeight: 600 }}>*/}
+        {/*            Projects*/}
+        {/*          </Typography>*/}
+        {/*          <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none' }}>?</Button>*/}
+        {/*        </Stack>*/}
+        {/*        <Box sx={{ textAlign: 'center', mt: 2 }}>*/}
+        {/*          <Icon icon="mdi:briefcase-outline" width={48} height={48} color="#bdbdbd" />*/}
+        {/*          <Typography variant="body2" sx={{ mt: 1 }}>Manage your projects</Typography>*/}
+        {/*          <Typography variant="caption" color="text.secondary">Track progress and deadlines</Typography>*/}
+        {/*          <Box sx={{ mt: 1 }}>*/}
+        {/*            <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none', color: '#1976d2' }}>*/}
+        {/*              View all projects*/}
+        {/*            </Button>*/}
+        {/*          </Box>*/}
+        {/*        </Box>*/}
+        {/*      </Paper>*/}
+        {/*    </Grid>*/}
+        {/*    <Grid item xs={12} md={6}>*/}
+        {/*      <PaymentsOverviewCard*/}
+        {/*        title="Payments overview"*/}
+        {/*        message="It's a quiet month. No payments are being processed right now."*/}
+        {/*        onCheckInvoices={() => {}}*/}
+        {/*      />*/}
+        {/*    </Grid>*/}
+        {/*    <Grid item xs={12} md={6}>*/}
+        {/*      <NotesCard*/}
+        {/*        title="Recent notes"*/}
+        {/*        notes={recentNotes}*/}
+        {/*        onAddNote={() => router.push(paths.dashboard.project.list)}*/}
+        {/*      />*/}
+        {/*    </Grid>*/}
+        {/*    <Grid item xs={12} md={6}>*/}
+        {/*      <Paper sx={{*/}
+        {/*        p: 3,*/}
+        {/*        height: '100%',*/}
+        {/*        borderRadius: 2,*/}
+        {/*        boxShadow: '0 1px 3px rgba(0,0,0,0.1)',*/}
+        {/*        background: 'white'*/}
+        {/*      }}>*/}
+        {/*        <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 2 }}>*/}
+        {/*          <Typography variant="subtitle2" sx={{ flexGrow: 1, fontWeight: 600 }}>*/}
+        {/*            Contacts*/}
+        {/*          </Typography>*/}
+        {/*          <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none' }}>?</Button>*/}
+        {/*        </Stack>*/}
+        {/*        <Box sx={{ textAlign: 'center', mt: 2 }}>*/}
+        {/*          <Icon icon="mdi:account-group-outline" width={48} height={48} color="#bdbdbd" />*/}
+        {/*          <Typography variant="body2" sx={{ mt: 1 }}>Manage your contacts</Typography>*/}
+        {/*          <Typography variant="caption" color="text.secondary">Keep track of all your clients</Typography>*/}
+        {/*          <Box sx={{ mt: 1 }}>*/}
+        {/*            <Button size="small" variant="text" sx={{ fontSize: 12, textTransform: 'none', color: '#1976d2' }}>*/}
+        {/*              View all contacts*/}
+        {/*            </Button>*/}
+        {/*          </Box>*/}
+        {/*        </Box>*/}
+        {/*      </Paper>*/}
+        {/*    </Grid>*/}
+        {/*  </Grid>*/}
+        {/*</Grid>*/}
 
         {/* Right Column */}
-        <Grid item xs={12} lg={3}>
+        <Grid item xs={12} lg={4}>
           <CalendarCard
             projects={data.scheduledProjects || []}
             onMeeting={() => {}}
           />
         </Grid>
       </Grid>
+
+      {/*second row*/}
+      <Grid container spacing={3} style={{marginBottom: "24px"}}>
+        <Grid item xs={12} lg={4}>
+          <PaymentsCard
+            summary="Your payments"
+            amount={`$${data.totalEarnings || 0}`}
+            onGoToPayments={() => {}}
+          />
+        </Grid>
+        <Grid item xs={12} lg={8}>
+          <NotesCard
+            title="Recent notes"
+            notes={recentNotes}
+            onAddNote={() => router.push(paths.dashboard.project.list)}
+          />
+        </Grid>
+      </Grid>
+
+
     </Box>
+    </Container>
   );
 };
 

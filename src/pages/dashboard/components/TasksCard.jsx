@@ -20,4 +20,4 @@ const TasksCard = ({ tasks, onGoToTasks, sx = {} }) => (
   </Card>
 );
 
-export default TasksCard; 
+export default TasksCard;

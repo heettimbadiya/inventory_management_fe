@@ -18,10 +18,11 @@ const CreateCard = ({
 }) => (
   <Card
     sx={{
-      borderRadius: 3,
+      borderRadius: 0,
       boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-      p: 2,
+      p: 3,
       backgroundColor: '#fafafa',
+      height: '400px',
       ...sx
     }}
   >

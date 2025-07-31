@@ -4,9 +4,9 @@ import { Icon } from '@iconify/react';
 
 const LeadsCard = ({ leads, onGoToInquiries, sx = {} }) => (
   <Card sx={{
-    borderRadius: 2,
+    borderRadius: 0,
     boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-    height: '100%',
+    height: '400px',
     background: 'white',
     ...sx
   }}>

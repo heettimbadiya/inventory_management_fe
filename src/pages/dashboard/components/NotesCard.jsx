@@ -4,9 +4,11 @@ import { Icon } from '@iconify/react';
 
 const NotesCard = ({ title, notes, onAddNote, sx = {} }) => (
   <Card sx={{
-    borderRadius: 2,
+    borderRadius: 0,
     boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-    height: '100%',
+    height: '400px',
+    overflowY: 'auto',
+    overflowX: 'hidden',
     background: 'white',
     ...sx
   }}>

@@ -3,20 +3,21 @@ import { Card, CardContent, Typography, Box, Tooltip, Divider, Stack } from '@mu
 import Iconify from 'src/components/iconify';
 
 const StatCard = ({ label, value, tooltip, valuePrefix, showDivider, sx = {} }) => (
-  <Box sx={{ display: 'flex', alignItems: 'stretch', height: 1 }}>
-    <Card sx={{ 
-      flex: 1, 
-      boxShadow: '0 1px 3px rgba(0,0,0,0.1)', 
-      borderRadius: 2, 
-      display: 'flex', 
-      flexDirection: 'column', 
+  <Box sx={{ display: 'flex', alignItems: 'stretch', height: 1}}>
+    <Box sx={{
+      flex: 1,
+      boxShadow: 'none',
+      borderRadius: 0,
+      display: 'flex',
+      flexDirection: 'column',
       justifyContent: 'center',
       background: 'white',
-      ...sx 
+      // borderRight: '1px solid #e0e0e0',
+      ...sx
     }}>
-      <CardContent sx={{ p: 3, textAlign: 'left', '&:last-child': { pb: 3 } }}>
-        <Stack direction="row" alignItems="center" spacing={0.5} sx={{ mb: 0.5 }}>
-          <Typography variant="subtitle2" color="text.secondary" sx={{ fontWeight: 600 }}>
+      <CardContent sx={{ p:3,textAlign: 'left', '&:last-child': { pb: 3 } }}>
+        <Stack direction="row" alignItems="center" spacing={0.5}>
+          <Typography variant="subtitle2" color="text.dark" sx={{ fontWeight: 400 }}>
             {label}
           </Typography>
           <Tooltip title={tooltip || label} arrow>
@@ -25,15 +26,15 @@ const StatCard = ({ label, value, tooltip, valuePrefix, showDivider, sx = {} }) 
             </Box>
           </Tooltip>
         </Stack>
-        <Typography variant="h4" sx={{ fontWeight: 700, mt: 0.5 }}>
+        <Typography variant="h3" sx={{ fontWeight: 100}}>
           {valuePrefix}{value}
         </Typography>
       </CardContent>
-    </Card>
+    </Box>
     {showDivider && (
       <Divider orientation="vertical" flexItem sx={{ mx: 0, my: 2, borderColor: 'divider' }} />
     )}
   </Box>
 );
 
-export default StatCard; 
+export default StatCard;
